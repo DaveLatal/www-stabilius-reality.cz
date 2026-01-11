@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteCond %{ENV:HTTPS} !^.*on
+RewriteRule ^(.*)$ https://bl0ckdaveapps.com/$1 [R,L]
+
+RewriteRule (.*) public/$1 [L]

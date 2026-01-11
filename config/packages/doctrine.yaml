@@ -8,6 +8,9 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        mapping_types:
+            array: json
+            json_array: json
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -18,6 +21,7 @@ doctrine:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
         auto_mapping: true
         mappings:
+            SonataUserBundle: false
             App:
                 type: attribute
                 is_bundle: false
@@ -26,6 +30,12 @@ doctrine:
                 alias: App
         controller_resolver:
             auto_mapping: false
+#        entity_listeners:
+#            App\Entity\SonataAdminUser:
+#                prePersist:
+#                    - { class: App\EventListener\UserPasswordListener, method: prePersist }
+#                preUpdate:
+#                    - { class: App\EventListener\UserPasswordListener, method: preUpdate }
 
 when@test:
     doctrine:

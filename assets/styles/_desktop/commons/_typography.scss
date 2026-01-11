@@ -1,0 +1,58 @@
+.text-xs{
+    font-size: $text-xs;
+    line-height: 18px;
+}
+
+.text-sm{
+    font-size: $text-sm;
+    line-height: 20px;
+}
+
+.text-md{
+    font-size: $text-md;
+    line-height: 24px;
+}
+
+.text-lg{
+    font-size: $text-lg;
+    line-height: 28px;
+}
+
+.text-xl{
+    font-size: $text-xl;
+    line-height: 28px;
+}
+
+.display-xs{
+    font-size: $display-xs;
+    line-height: 32px;
+}
+
+.display-sm{
+    font-size: $display-sm;
+    line-height: 36px;
+}
+
+.display-md{
+    font-size: $display-md;
+    line-height: 44px;
+}
+
+.display-lg{
+    font-size: $display-lg;
+    line-height: 60px;
+}
+
+.display-xl{
+    font-size: $display-xl;
+    line-height: 72px;
+}
+
+.display-2xl{
+    font-size: $display-2xl;
+    line-height: 80px;
+}
+
+.text-weight-[--weight]{
+    font-weight: --weight !important;
+}

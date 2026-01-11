@@ -1,0 +1,59 @@
+/* DIMENSIONS */
+$container-desktop: 1216px;
+
+
+/* COLORS */
+$primary-50: #F2F7F4;
+$primary-400: #699E80;
+$primary-500: #44795C;
+$primary-900: #101E18;
+$neutral-200: #E5E7EB;
+$neutral-400: #9DA4AE;
+$neutral-500: #6C737F;
+$neutral-600: #4D5761;
+$neutral-900: #111927;
+$green-menu: #535862;
+
+
+/* TYPOGRAPHY */
+$text-xs: 12px;
+$text-sm: 14px;
+$text-md: 16px;
+$text-lg: 18px;
+$text-xl: 20px;
+$display-xs: 24px;
+$display-sm: 30px;
+$display-md: 36px;
+$display-lg: 48px;
+$display-xl: 60px;
+$display-2xl: 72px;
+
+
+$size__site_content_width: 1024px;
+
+/* Media Queries */
+$media_queries : (
+    'mobile'    : "only screen and (max-width: 667px)",
+    'tablet'    : "only screen and (min-width: 668px) and (max-width: $size__site_content_width)",
+    'desktop'   : "only screen and (min-width: ($size__site_content_width + 1))",
+    'retina2'   : "only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)",
+    'retina3'   : "only screen and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 288dpi)",
+    'landscape' : "screen and (orientation:landscape) ",
+    'portrait'  : "screen and (orientation:portrait) "
+);
+
+@mixin for_breakpoint($breakpoints) {
+    $conditions : ();
+    @each $breakpoint in $breakpoints {
+        // If the key exists in the map
+        $conditions: append(
+                $conditions,
+                #{inspect(map-get($media_queries, $breakpoint))},
+                comma
+        );
+    }
+
+    @media #{$conditions} {
+        @content;
+    }
+}

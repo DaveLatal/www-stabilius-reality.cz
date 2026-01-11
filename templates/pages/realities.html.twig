@@ -1,0 +1,13 @@
+{% extends "index.html.twig" %}
+{% import "./macros/macros.html.twig" as macros %}
+{% block titleText %}Nemovitosti{% endblock %}
+
+{% block appBody %}
+<section id="real-hero">
+    <div class="container position-relative">
+        <div class="real-hero-vectors"></div>
+        {{ macros.breadcrumb("Nemovitosti") }}
+        <h2 class="display-lg text-white">Nemovitosti</h2>
+    </div>
+</section>
+{% endblock %}

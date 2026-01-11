@@ -1,0 +1,89 @@
+.icon {
+
+    width: var(--size);
+    height: var(--size);
+
+    display: inline-block;
+
+    background-color: currentColor;
+
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+}
+
+/** CUSTOM ICONS **/
+
+.icon-phone {
+    -webkit-mask-image: url("/assets/images/icons/phone-call-01.svg");
+    mask-image: url("/assets/images/icons/phone-call-01.svg");
+}
+
+.icon-mail {
+    -webkit-mask-image: url("/assets/images/icons/mail-02.svg");
+    mask-image: url("/assets/images/icons/mail-02.svg");
+}
+
+.icon-search {
+    -webkit-mask-image: url("/assets/images/icons/search.svg");
+    mask-image: url("/assets/images/icons/search.svg");
+}
+
+.icon-building {
+    -webkit-mask-image: url("/assets/images/icons/building.svg");
+    mask-image: url("/assets/images/icons/building.svg");
+}
+
+.icon-building-03 {
+    -webkit-mask-image: url("/assets/images/icons/building-03.svg");
+    mask-image: url("/assets/images/icons/building-03.svg");
+}
+
+.icon-home-01 {
+    -webkit-mask-image: url("/assets/images/icons/home-01.svg");
+    mask-image: url("/assets/images/icons/home-01.svg");
+}
+
+.icon-home-03 {
+    -webkit-mask-image: url("/assets/images/icons/home-03.svg");
+    mask-image: url("/assets/images/icons/home-03.svg");
+}
+
+.icon-home-05 {
+     -webkit-mask-image: url("/assets/images/icons/home-05.svg");
+     mask-image: url("/assets/images/icons/home-05.svg");
+ }
+
+.icon-home-line {
+    -webkit-mask-image: url("/assets/images/icons/home-line.svg");
+    mask-image: url("/assets/images/icons/home-line.svg");
+}
+
+.icon-arrow {
+    -webkit-mask-image: url("/assets/images/icons/arrow.svg");
+    mask-image: url("/assets/images/icons/arrow.svg");
+}
+
+.icon-facebook {
+    -webkit-mask-image: url("/assets/images/icons/facebook.svg");
+    mask-image: url("/assets/images/icons/facebook.svg");
+}
+
+.icon-instagram {
+    -webkit-mask-image: url("/assets/images/icons/instagram.svg");
+    mask-image: url("/assets/images/icons/instagram.svg");
+}
+
+.icon-chevron-l {
+    -webkit-mask-image: url("/assets/images/icons/chevron-l.svg");
+    mask-image: url("/assets/images/icons/chevron-l.svg");
+}
+
+.icon-chevron-r {
+    -webkit-mask-image: url("/assets/images/icons/chevron-r.svg");
+    mask-image: url("/assets/images/icons/chevron-r.svg");
+}

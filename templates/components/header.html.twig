@@ -1,0 +1,59 @@
+<section class="header">
+    <div class="header-contact-bg show-desktop">
+        <div class="container">
+            <div class="header-contact">
+                <div class="contacts">
+                    <a href="tel:+420 777 123 456" class="text-sm"><i class="icon icon-phone"></i> +420 777 123 456</a>
+                    <a href="mailto:info@stabilius-real.cz" class="text-sm"><i class="icon icon-mail"></i> info@stabilius-real.cz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-navigation-bg">
+        <div class="container">
+            <div class="header-navigation">
+                <a href="{{ path('front_index') }}"><img src="{{ asset("./build/images/stabilius-logo.png") }}" class="header-logo" alt="Logo"/></a>
+                <nav class="navbar navbar-expand-lg">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-sm" href="{{ path('front_realities') }}">Nemovitosti</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-sm" href="#">O nás</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-sm" href="#">Služby</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-sm" href="#">Kontakty</a>
+                            </li>
+                            <li class="nav-item show-desktop">
+                                <a class="nav-link nav-search-butt" href="#"><i class="icon icon-search"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-custom-dark text-sm text-weight-600" href="#">Chci prodat</a>
+                            </li>
+                        </ul>
+                        <div class="show-mobile">
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="desktop-search-bar show-desktop">
+        <div class="search-wrapper">
+            <input name="search-reality" id="search-reality" class="search-reality-top-d text-md" placeholder="Vyhledat nemovitost" alt="Search reality" />
+            <button class="btn search-reality-butt search-js text-sm">
+                <i class="icon icon-search"></i>
+                Vyhledat
+            </button>
+        </div>
+    </div>
+</section>

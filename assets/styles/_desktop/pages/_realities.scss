@@ -1,0 +1,46 @@
+section#real-hero{
+    height: 240px;
+    background: linear-gradient(90deg, rgba(68, 121, 92, 0.9) 0%, rgba(16, 30, 24, 0.9) 100%), url(../../../images/realitieshero.jpg);
+    border-radius: 0;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+
+    .container.position-relative{
+        height: 100%;
+
+        .breadcrumb{
+            position: absolute;
+            left: 0;
+            top: 40px;
+        }
+
+
+        .real-hero-vectors{
+            position: absolute;
+            width: 529.51px;
+            height: 521.52px;
+            left: 840px;
+            top: calc(50% - 521.52px/2 - 59.24px);
+            mix-blend-mode: overlay;
+            opacity: 0.3;
+            transform: rotate(15deg);
+        }
+
+        h2{
+            position: absolute;
+            width: 301px;
+            height: 60px;
+            left: 0;
+            bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
+    }
+
+}

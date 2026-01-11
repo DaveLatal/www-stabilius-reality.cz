@@ -2,9 +2,12 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Sonata\UserBundle\Model\UserInterface: auto
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        sonata_user_bundle:
+            id: sonata.user.security.user_provider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -12,6 +15,19 @@ security:
         main:
             lazy: true
             provider: users_in_memory
+
+        admin:
+            pattern: ^/admin
+            provider: sonata_user_bundle
+            form_login:
+                login_path: /admin/login
+                check_path: /admin/login_check
+                default_target_path: /admin/dashboard
+            logout:
+                path: /admin/logout
+                target: /admin/login
+            remember_me:
+                secret: '%env(APP_SECRET)%'
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -22,7 +38,19 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # Admin login page needs to be accessed without credential
+        - { path: ^/admin/login$, role: PUBLIC_ACCESS }
+        - { path: ^/admin/logout$, role: PUBLIC_ACCESS }
+        - { path: ^/admin/login_check$, role: PUBLIC_ACCESS }
+        - { path: ^/admin/request$, role: PUBLIC_ACCESS }
+        - { path: ^/admin/check-email$, role: PUBLIC_ACCESS }
+        - { path: ^/admin/reset/.*$, role: PUBLIC_ACCESS }
+
+        # Secured part of the site
+        # This config requires being logged for the whole site and having the admin role for the admin part.
+        # Change these rules to adapt them to your needs
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/.*, role: PUBLIC_ACCESS }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

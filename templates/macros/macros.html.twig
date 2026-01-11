@@ -1,0 +1,69 @@
+{# @var seller App\Entity\Seller #}
+{# @var sellerPosition App\Entity\SellerPosition #}
+{# @var offer App\Entity\Reality #}
+{# @var contact App\Entity\Contact #}
+{# @var blog App\Entity\Blog #}
+
+
+{% macro breadcrumb(currentPage,route=[]) %}
+    <div class="breadcrumb">
+        <a href="/" class="header-hp-link"><i class="icon icon-home-line"></i></a>
+        {% if route|length > 0 %}
+            {% for r in route %}
+                <i class="icon icon-chevron-r"></i>
+                <a href="/nemovitosti">Nemovitosti</a>
+            {% endfor %}
+        {% endif %}
+        <i class="icon icon-chevron-r"></i>
+        <p>{{ currentPage }}</p>
+    </div>
+{% endmacro %}
+
+
+{% macro renderOfferList(offers=null) %}
+    <div class="offer-list">
+        <div class="offer-tabs-row">
+            {% if offers is not null %}
+                {% for offer in offers %}
+                    {{ _self.renderOfferItem(offer) }}
+                {% endfor %}
+            {% else %}
+                {% for i in 0..5 %}
+                    {{ _self.renderOfferItem() }}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderOfferItem(offer=null) %}
+    {% if offer is not null %}
+        <div class="offer-tab">
+            <div class="offer-tab-image">
+                <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
+                <div class="tag text-sm">Novinka</div>
+            </div>
+            <div class="offer-tab-content">
+                <div class="offer-tab-text">
+                    <p class="offer-title display-xs">{{ offer.title }}</p>
+                    <p class="offer-location text-md">{{ offer.title }}</p>
+                    <p class="offer-price text-lg">{{ offer.title }}</p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="offer-tab">
+        <div class="offer-tab-image">
+            <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
+            <div class="tag text-sm">Novinka</div>
+        </div>
+        <div class="offer-tab-content">
+            <div class="offer-tab-text">
+                <p class="offer-title display-xs">Slunný byt s terasou</p>
+                <p class="offer-location text-md">Brno - Královo Pole</p>
+                <p class="offer-price text-lg">8 990 000 Kč</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endmacro %}
