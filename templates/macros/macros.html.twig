@@ -3,24 +3,33 @@
 {# @var offer App\Entity\Reality #}
 {# @var contact App\Entity\Contact #}
 {# @var blog App\Entity\Blog #}
+{# @var route App\DTO\Breadcrumbs #}
+{# @var r App\DTO\BreadcrumbItem #}
 
-
-{% macro breadcrumb(currentPage,route=[]) %}
+{% macro breadcrumb(route) %}
     <div class="breadcrumb">
-        <a href="/" class="header-hp-link"><i class="icon icon-home-line"></i></a>
-        {% if route|length > 0 %}
-            {% for r in route %}
+        {# Homepage icon only #}
+        <a href="{{ path('front_homepage') }}" class="header-hp-link">
+            <i class="icon icon-home-line"></i>
+        </a>
+
+        {% if route.items is not empty %}
+            {% for r in route.items %}
                 <i class="icon icon-chevron-r"></i>
-                <a href="/nemovitosti">Nemovitosti</a>
+
+                {% if r.url %}
+                    <a href="{{ r.url }}">{{ r.label }}</a>
+                {% else %}
+                    <span>{{ r.label }}</span>
+                {% endif %}
             {% endfor %}
         {% endif %}
-        <i class="icon icon-chevron-r"></i>
-        <p>{{ currentPage }}</p>
     </div>
 {% endmacro %}
 
 
-{% macro renderOfferList(offers=null) %}
+
+{% macro renderOfferList(offers=null, count=0) %}
     <div class="offer-list">
         <div class="offer-tabs-row">
             {% if offers is not null %}
@@ -28,9 +37,15 @@
                     {{ _self.renderOfferItem(offer) }}
                 {% endfor %}
             {% else %}
-                {% for i in 0..5 %}
-                    {{ _self.renderOfferItem() }}
-                {% endfor %}
+                {% if count != 0 %}
+                    {% for i in 1..count %}
+                        {{ _self.renderOfferItem() }}
+                    {% endfor %}
+                {% else %}
+                    {% for i in 0..5 %}
+                        {{ _self.renderOfferItem() }}
+                    {% endfor %}
+                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -38,7 +53,7 @@
 
 {% macro renderOfferItem(offer=null) %}
     {% if offer is not null %}
-        <div class="offer-tab">
+        <div class="offer-tab" data-slug="{{ offer.slug }}">
             <div class="offer-tab-image">
                 <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
                 <div class="tag text-sm">Novinka</div>
@@ -52,7 +67,7 @@
             </div>
         </div>
     {% else %}
-        <div class="offer-tab">
+        <div class="offer-tab" data-slug="test">
         <div class="offer-tab-image">
             <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
             <div class="tag text-sm">Novinka</div>

@@ -41,4 +41,9 @@ $(document).ready(function() {
         $(this).toggleClass("active");
     });
 
+    $(".offer-tab").click(function (){
+        let slug = $(this).attr("data-slug");
+        window.location.href = "/nemovitost/" + slug;
+    });
+    $('.image-link').viewbox();
 });

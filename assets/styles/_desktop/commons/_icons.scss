@@ -37,12 +37,18 @@
     -webkit-mask-image: url("/assets/images/icons/building.svg");
     mask-image: url("/assets/images/icons/building.svg");
 }
-
+.icon-building-02 {
+    -webkit-mask-image: url("/assets/images/icons/building-02.svg");
+    mask-image: url("/assets/images/icons/building-02.svg");
+}
 .icon-building-03 {
     -webkit-mask-image: url("/assets/images/icons/building-03.svg");
     mask-image: url("/assets/images/icons/building-03.svg");
 }
-
+.icon-home-smile {
+    -webkit-mask-image: url("/assets/images/icons/home-smile.svg");
+    mask-image: url("/assets/images/icons/home-smile.svg");
+}
 .icon-home-01 {
     -webkit-mask-image: url("/assets/images/icons/home-01.svg");
     mask-image: url("/assets/images/icons/home-01.svg");
@@ -51,6 +57,11 @@
 .icon-home-03 {
     -webkit-mask-image: url("/assets/images/icons/home-03.svg");
     mask-image: url("/assets/images/icons/home-03.svg");
+}
+
+.icon-home-04 {
+     -webkit-mask-image: url("/assets/images/icons/home-04.svg");
+     mask-image: url("/assets/images/icons/home-04.svg");
 }
 
 .icon-home-05 {
@@ -86,4 +97,19 @@
 .icon-chevron-r {
     -webkit-mask-image: url("/assets/images/icons/chevron-r.svg");
     mask-image: url("/assets/images/icons/chevron-r.svg");
+}
+
+.icon-arrow-l {
+    -webkit-mask-image: url("/assets/images/icons/arrow-left.svg");
+    mask-image: url("/assets/images/icons/arrow-left.svg");
+}
+
+.icon-arrow-r {
+    -webkit-mask-image: url("/assets/images/icons/arrow-right.svg");
+    mask-image: url("/assets/images/icons/arrow-right.svg");
+}
+
+.icon-location-pin {
+    -webkit-mask-image: url("/assets/images/icons/location-pin.svg");
+    mask-image: url("/assets/images/icons/location-pin.svg");
 }

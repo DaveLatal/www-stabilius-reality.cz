@@ -3,11 +3,151 @@
 {% block titleText %}Nemovitosti{% endblock %}
 
 {% block appBody %}
-<section id="real-hero">
-    <div class="container position-relative">
-        <div class="real-hero-vectors"></div>
-        {{ macros.breadcrumb("Nemovitosti") }}
-        <h2 class="display-lg text-white">Nemovitosti</h2>
-    </div>
-</section>
+    <section id="real-hero">
+        <div class="container position-relative">
+            <div class="real-hero-vectors"></div>
+            {{ macros.breadcrumb(breadcrumbs) }}
+            <h2 class="display-lg text-white">Nemovitosti</h2>
+        </div>
+    </section>
+    <section id="real-filter">
+        <div class="container">
+            <div class="real-filter-wrapper">
+                <div class="real-filter-categories">
+                    <div class="cat-tab">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-home-smile"></i> <span>Vše</span>
+                            </div>
+                            <span>1 876</span>
+                        </div>
+                    </div>
+                    <div class="cat-tab">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-building"></i> <span>Byty</span>
+                            </div>
+                            <span>1 876</span>
+                        </div>
+                    </div>
+                    <div class="cat-tab active">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-home-03"></i> <span>Domy</span>
+                            </div>
+                            <span>198</span>
+                        </div>
+                    </div>
+                    <div class="cat-tab">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-home-01"></i> <span>Pozemky</span>
+                            </div>
+                            <span>123</span>
+                        </div>
+                    </div>
+                    <div class="cat-tab">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-building-02"></i> <span>Komerční</span>
+                            </div>
+                            <span>456</span>
+                        </div>
+                    </div>
+                    <div class="cat-tab">
+                        <div class="cat-tab-inside">
+                            <div class="cat-tab-text-icon">
+                                <i class="icon icon-home-04"></i> <span>Ostatní</span>
+                            </div>
+                            <span>876</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabs-wrapper">
+                    <button class="tab-switcher active text-sm btn">Rodinný dům</button>
+                    <button class="tab-switcher text-sm btn">Chata</button>
+                    <button class="tab-switcher text-sm btn">Chalupa</button>
+                </div>
+                <div class="real-filter-subfilter">
+                    <div class="subfilter-item-wrapper">
+                        <div class="subfilter-item">
+                            <label>Typ nabídky</label>
+                            <select aria-label="">
+                                <option>Vše</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subfilter-item-wrapper">
+                        <div class="subfilter-item">
+                            <label>Typ nabídky</label>
+                            <select aria-label="">
+                                <option>Vše</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subfilter-item-wrapper">
+                        <div class="subfilter-item">
+                            <label>Typ nabídky</label>
+                            <select aria-label="">
+                                <option>Vše</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subfilter-item-wrapper">
+                        <div class="subfilter-item">
+                            <label>Typ nabídky</label>
+                            <select aria-label="">
+                                <option>Vše</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subfilter-item-wrapper">
+                        <div class="subfilter-item">
+                            <label>Typ nabídky</label>
+                            <select aria-label="">
+                                <option>Vše</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="btn btn-custom-dark">
+                    Vyhledat 234 nemovitostí
+                </button>
+            </div>
+        </div>
+    </section>
+    <section id="real-results">
+        <div class="container">
+            <div class="real-results-wrapper">
+                <div class="real-results-upper-controls">
+                    <span class="text-md">Nalezeno: 234 nemovitstí</span>
+                    <div class="results-upper-controls-wrapper">
+                        <label id="real-sorting" class="text-md">Řadit:</label>
+                        <select aria-label="real-sorting">
+                            <option>Neřadit</option>
+                        </select>
+                    </div>
+                </div>
+                {{ macros.renderOfferList(null, 12) }}
+                <div class="real-results-pagination-wrapper">
+                    <div class="pagination-button-wrap">
+                        <button class="btn" disabled><i class="icon icon-arrow-l"></i> Předchozí</button>
+                    </div>
+                    <div class="pagination-numbers-wrap">
+                        <a class="btn active"><div class="pagination-content">1</div></a>
+                        <a class="btn"><div class="pagination-content">2</div></a>
+                        <a class="btn"><div class="pagination-content">3</div></a>
+                        <a class="btn disabled"><div class="pagination-content">...</div></a>
+                        <a class="btn"><div class="pagination-content">8</div></a>
+                        <a class="btn"><div class="pagination-content">7</div></a>
+                        <a class="btn"><div class="pagination-content">9</div></a>
+                    </div>
+                    <div class="pagination-button-wrap right">
+                        <button>Následující <i class="icon icon-arrow-r"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

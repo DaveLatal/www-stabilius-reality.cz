@@ -23,6 +23,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('viewbox', './assets/js/jquery.viewbox.min.js')
     .addStyleEntry('styles', './assets/styles/app.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

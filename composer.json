@@ -18,6 +18,7 @@
         "sonata-project/twig-extensions": "^2.6",
         "sonata-project/user-bundle": "^5.18",
         "symfony/asset": "7.3.*",
+        "symfony/asset-mapper": "7.3.*",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
         "symfony/expression-language": "7.3.*",
@@ -40,12 +41,15 @@
         "symfony/string": "7.3.*",
         "symfony/translation": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
+        "symfony/ux-leaflet-map": "^2.32",
+        "symfony/ux-map": "^2.32",
         "symfony/validator": "7.3.*",
         "symfony/web-link": "7.3.*",
         "symfony/webpack-encore-bundle": "^2.3",
         "symfony/yaml": "7.3.*",
         "twig/extra-bundle": "^3.0",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "vich/uploader-bundle": "^2.9"
     },
     "config": {
         "allow-plugins": {
@@ -79,7 +83,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
