@@ -1,0 +1,11 @@
+#fos_user:
+#    db_driver: orm
+#    firewall_name: main
+#    user_class: App\Entity\SonataAdminUser
+#
+#    from_email:
+#        address: noreply@example.com
+#        sender_name: My App
+#
+#    service:
+#        mailer: App\Mailer\FosUserMailer

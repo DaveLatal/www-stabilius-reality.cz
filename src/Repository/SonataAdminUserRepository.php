@@ -16,6 +16,32 @@ class SonataAdminUserRepository extends ServiceEntityRepository
         parent::__construct($registry, SonataAdminUser::class);
     }
 
+    public function save(SonataAdminUser $adminUser, bool $flush = true): SonataAdminUser
+    {
+        $em = $this->getEntityManager();
+
+        $em->persist($adminUser);
+
+        if ($flush) {
+            $em->flush();
+        }
+
+        return $adminUser;
+    }
+
+    public function remove(object $entity, bool $flush = true): void
+    {
+        $em = $this->getEntityManager();
+
+        $em->remove($entity);
+
+        if ($flush) {
+            $em->flush();
+        }
+    }
+
+
+
     //    /**
     //     * @return SonataAdminUser[] Returns an array of SonataAdminUser objects
     //     */

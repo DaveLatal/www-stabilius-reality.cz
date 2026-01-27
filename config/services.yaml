@@ -4,13 +4,26 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    fos_user_from_email_address: '%env(resolve:MAILER_FROM_ADDRESS)%'
+    fos_user_from_email_name: '%env(resolve:MAILER_FROM_NAME)%'
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+#    App\Mailer\FosUserMailer:
+#        arguments:
+#            $fromEmail: '%fos_user_from_email_address%'
+#            $fromName: '%fos_user_from_email_name%'
+    admin.category:
+        class: App\Admin\AdminCategory
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Category, manager_type: orm, label: Category }
 
+    admin.adminuser:
+        class: App\Admin\AdminAdminUser
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\SonataAdminUser, manager_type: orm, label: User }
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
