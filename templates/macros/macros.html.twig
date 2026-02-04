@@ -56,7 +56,7 @@
         <div class="offer-tab" data-slug="{{ offer.id }}">
             <div class="offer-tab-image">
                 <img src="{{ offer.columns['photo'] }}" alt="Barak brno" />
-                {% if 1 == 2 %}<div class="tag text-sm">Novinka</div>{% endif %}
+                {% if offer.columns['stav'] == "Rezervováno, jen vlastní web" %}<div class="tag text-sm">Prodáno</div>{% endif %}
             </div>
             <div class="offer-tab-content">
                 <div class="offer-tab-text">
