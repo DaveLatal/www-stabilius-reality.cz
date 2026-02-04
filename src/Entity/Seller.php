@@ -120,4 +120,14 @@ class Seller
 
         return $this;
     }
+
+    public function getEmailContact(): ?string
+    {
+        foreach ($this->contacts as $contact){
+            if($contact->getIcon() == "icon icon-mail"){
+                return $contact->getValue();
+            }
+        }
+        return null;
+    }
 }

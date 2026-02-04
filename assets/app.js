@@ -42,8 +42,14 @@ $(document).ready(function() {
     });
 
     /* SWITCHER TOGGLE */
-    $(".offer-tab-switcher").click(function (){
-        $(".offer-tab-switcher").removeClass("active");
+    $(".tab-switcher").click(function (){
+        $(".tab-switcher").removeClass("active");
+        $(this).toggleClass("active");
+    });
+
+    /* SWITCHER TOGGLE */
+    $(".cat-tab").click(function (){
+        $(".cat-tab").removeClass("active");
         $(this).toggleClass("active");
     });
 
@@ -70,6 +76,40 @@ $(document).ready(function() {
 
 
     $('#send-mail').click(function (){
+        let firstname = $("#mail_form_firstname").val();
+        let lastname = $("#mail_form_lastname").val();
+        let email = $("#mail_form_email").val();
+        let phone = $("#mail_form_phone").val();
+        let message = $("#mail_form_message-text").val();
+        let agreed = $("#agree-send-mail").is(":checked");
+
+        let info = $(".form-send-result");
+
+        if(agreed){
+            $.ajax({
+                type: "POST",
+                url: "/send-contact-form-mail",
+                data: {
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    phone: phone,
+                    message: message,
+                },
+                success: function (response) {
+                    //service.php response
+                    if(response.success===true){
+                        console.log("jedem bomby");
+                        info.addClass("active");
+                        $("#mail-form").trigger('reset');
+
+                    }
+                }
+            });
+        }else{
+            alert("Musíte souhlasit!");
+        }
+
 
     });
     // if($("#reality-map-render")){

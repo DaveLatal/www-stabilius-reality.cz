@@ -125,7 +125,7 @@ section#real-filter{
             flex: none;
             order: 0;
             flex-grow: 1;
-
+            cursor: pointer;
 
             @include mixins.tablet() {
                 width: 100%;

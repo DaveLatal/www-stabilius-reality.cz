@@ -118,19 +118,19 @@
 {% endmacro %}
 
 {% macro renderContactForm(broker=null) %}
-    <form class="seller-contact-form" data-broker="{% if broker is defined %}{{ broker }}{% endif %}">
+    <form name="mail-form" id="mail-form" class="seller-contact-form" data-broker="{% if broker is defined %}{{ broker }}{% endif %}">
         <div class="seller-contact-form-row">
             <div class="input-area">
                 <div class="label-wrapper">
                     <label class="text-sm" id="name">Jméno</label>
                 </div>
-                <input type="text" aria-label="name" placeholder="Petr"/>
+                <input type="text" id="mail_form_firstname" name="mail_form_firstname" aria-label="name" placeholder="Petr"/>
             </div>
             <div class="input-area">
                 <div class="label-wrapper">
                     <label class="text-sm" id="surname">Příjmení</label>
                 </div>
-                <input type="text" aria-label="surname" placeholder="Novák"/>
+                <input type="text" id="mail_form_lastname" name="mail_form_lastname" aria-label="surname" placeholder="Novák"/>
             </div>
         </div>
         <div class="seller-contact-form-row">
@@ -138,27 +138,27 @@
                 <div class="label-wrapper">
                     <label class="text-sm" id="email">Email</label>
                 </div>
-                <input type="text" aria-label="email" placeholder="novak@email.cz"/>
+                <input type="text" id="mail_form_email" name="mail_form_email" aria-label="email" placeholder="novak@email.cz"/>
             </div>
             <div class="input-area">
                 <div class="label-wrapper">
                     <label class="text-sm" id="phone">Telefon</label>
                 </div>
-                <input type="text" aria-label="phone" placeholder="+420 777 123 456"/>
+                <input type="text" id="mail_form_phone" name="mail_form_phone" aria-label="phone" placeholder="+420 777 123 456"/>
             </div>
         </div>
         <div class="input-textarea">
             <div class="label-wrapper">
-                <label class="text-sm" id="message-text-label">Telefon</label>
+                <label class="text-sm" id="message-text-label">Zpráva</label>
             </div>
-            <textarea name="message-text" placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
+            <textarea name="mail_form_message-text" id="mail_form_message-text"  placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
         </div>
         <div class="form-send-result">
             <i class="icon icon-mail"></i><span id="form-send-result-msg" class="text-md">Zpráva odeslána!</span>
         </div>
         <div class="contact-seller-buttons-wrapper">
             <div class="checkbox-wrapper">
-                <input type="checkbox" aria-label="agreed-lalbel"/>
+                <input name="agree-send-mail" id="agree-send-mail" type="checkbox" aria-label="agreed-lalbel"/>
                 <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>
             </div>
             <button id="send-mail" type="button" class="btn btn-custom-dark">Odeslat zprávu</button>

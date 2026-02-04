@@ -277,50 +277,51 @@
                             <span class="text-sm">Zavolat prodejci</span>
                         </a>
                     </div>
-                    <form class="seller-contact-form">
-                        <div class="seller-contact-form-row">
-                            <div class="input-area">
-                                <div class="label-wrapper">
-                                    <label class="text-sm" id="name">Jméno</label>
-                                </div>
-                                <input type="text" aria-label="name" placeholder="Petr"/>
-                            </div>
-                            <div class="input-area">
-                                <div class="label-wrapper">
-                                    <label class="text-sm" id="surname">Příjmení</label>
-                                </div>
-                                <input type="text" aria-label="surname" placeholder="Novák"/>
-                            </div>
-                        </div>
-                        <div class="seller-contact-form-row">
-                            <div class="input-area">
-                                <div class="label-wrapper">
-                                    <label class="text-sm" id="email">Email</label>
-                                </div>
-                                <input type="text" aria-label="email" placeholder="novak@email.cz"/>
-                            </div>
-                            <div class="input-area">
-                                <div class="label-wrapper">
-                                    <label class="text-sm" id="phone">Telefon</label>
-                                </div>
-                                <input type="text" aria-label="phone" placeholder="+420 777 123 456"/>
-                            </div>
-                        </div>
-                        <div class="input-textarea">
-                            <div class="label-wrapper">
-                                <label class="text-sm" id="message-text-label">Telefon</label>
-                            </div>
-                            <textarea name="message-text" placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
-                        </div>
+                    {{ macros.renderContactForm() }}
+{#                    <form class="seller-contact-form">#}
+{#                        <div class="seller-contact-form-row">#}
+{#                            <div class="input-area">#}
+{#                                <div class="label-wrapper">#}
+{#                                    <label class="text-sm" id="name">Jméno</label>#}
+{#                                </div>#}
+{#                                <input type="text" aria-label="name" placeholder="Petr"/>#}
+{#                            </div>#}
+{#                            <div class="input-area">#}
+{#                                <div class="label-wrapper">#}
+{#                                    <label class="text-sm" id="surname">Příjmení</label>#}
+{#                                </div>#}
+{#                                <input type="text" aria-label="surname" placeholder="Novák"/>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="seller-contact-form-row">#}
+{#                            <div class="input-area">#}
+{#                                <div class="label-wrapper">#}
+{#                                    <label class="text-sm" id="email">Email</label>#}
+{#                                </div>#}
+{#                                <input type="text" aria-label="email" placeholder="novak@email.cz"/>#}
+{#                            </div>#}
+{#                            <div class="input-area">#}
+{#                                <div class="label-wrapper">#}
+{#                                    <label class="text-sm" id="phone">Telefon</label>#}
+{#                                </div>#}
+{#                                <input type="text" aria-label="phone" placeholder="+420 777 123 456"/>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="input-textarea">#}
+{#                            <div class="label-wrapper">#}
+{#                                <label class="text-sm" id="message-text-label">Telefon</label>#}
+{#                            </div>#}
+{#                            <textarea name="message-text" placeholder="Napište zprávu" aria-label="message-text-label"></textarea>#}
+{#                        </div>#}
 
-                        <div class="contact-seller-buttons-wrapper">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" aria-label="agreed-lalbel"/>
-                                <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>
-                            </div>
-                            <button type="submit" class="btn btn-custom-dark">Odeslat zprávu</button>
-                        </div>
-                    </form>
+{#                        <div class="contact-seller-buttons-wrapper">#}
+{#                            <div class="checkbox-wrapper">#}
+{#                                <input type="checkbox" aria-label="agreed-lalbel"/>#}
+{#                                <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>#}
+{#                            </div>#}
+{#                            <button type="submit" class="btn btn-custom-dark">Odeslat zprávu</button>#}
+{#                        </div>#}
+{#                    </form>#}
                 </div>
             </div>
             <div class="reality-body-seller-info-wrapper">

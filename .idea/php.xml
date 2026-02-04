@@ -157,6 +157,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/ux-map" />
       <path value="$PROJECT_DIR$/vendor/symfony/ux-leaflet-map" />
       <path value="$PROJECT_DIR$/vendor/symfony/asset-mapper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-messenger" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
