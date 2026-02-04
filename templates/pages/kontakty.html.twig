@@ -1,0 +1,46 @@
+{% extends "index.html.twig" %}
+{% import "./macros/macros.html.twig" as macros %}
+{% block titleText %}Kontakty{% endblock %}
+
+{% block appBody %}
+    <section id="real-hero">
+        <div class="container position-relative">
+            <div class="real-hero-vectors"></div>
+            {{ macros.breadcrumb(breadcrumbs) }}
+            <h2 class="display-lg text-white">Kontakty</h2>
+        </div>
+    </section>
+
+    <section id="contacts">
+        <div class="container">
+            <div class="contacts-wrapper">
+                <div class="contacts-list-wrapper">
+                    <h3 class="display-sm">Kontaktní údaje</h3>
+                    <div class="contacts-list">
+                        <p class="text-lg">Stabilius Real s.r.o.</p>
+                        <p class="text-md">IČ: 12345678</p>
+                        <p class="text-md">Družební 769,</p>
+                        <p class="text-md">779 00 Olomouc 9-Nové Sady</p>
+                        <br/>
+                        <a href="tel:+420 777 123 456" class="text-md"><i class="icon icon-phone"></i> +420 777 123 456</a>
+                        <a href="mailto:info@stabilius-real.cz" class="text-md"><i class="icon icon-mail"></i> info@stabilius-real.cz</a>
+                    </div>
+                </div>
+                <div class="map-wrapper">
+                    <h3 class="display-sm">Kde nás najdete</h3>
+                    <div id="reality-map-render" data-api-key="{{ google_maps_api_key }}" class="reality-map-render">
+                        <input type="hidden" id="map-render-lat" value="49.57466641491552" />
+                        <input type="hidden" id="map-render-lng" value="17.25002031141987" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <div class="reality-contact-seller-wrapper">
+                    <h3 class="display-sm text-center">Napište nám</h3>
+                    {{ macros.renderContactForm() }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

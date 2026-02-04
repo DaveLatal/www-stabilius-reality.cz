@@ -1,0 +1,40 @@
+{% extends "index.html.twig" %}
+{% import "./macros/macros.html.twig" as macros %}
+{% block titleText %}O nás{% endblock %}
+
+{% block appBody %}
+    <section id="real-hero">
+        <div class="container position-relative">
+            <div class="real-hero-vectors"></div>
+            {{ macros.breadcrumb(breadcrumbs) }}
+            <h2 class="display-lg text-white">O nás</h2>
+        </div>
+    </section>
+    <section id="about-us">
+        <div class="container">
+            <div class="about-us-wrapper">
+                <div class="about-us-description">
+                    <div class="about-us-description-frame">
+                        <p class="title display-md">Jsme Stabilius Real</p>
+                        <p class="description text-lg">Realitní kancelář, která staví na osobním přístupu a férovém jednání. Přestože naše značka vznikla teprve nedávno, stojí za ní dlouholeté zkušenosti v realitách. Jako realitní makléř jsem pomohla desítkám klientů najít domov nebo úspěšně prodat jejich nemovitost.
+                            <br/><br/>Vím, že každý obchod je jedinečný – proto nabízím individuální řešení šité na míru.“ Náš přístup stojí na pečlivém naslouchání Vašim potřebám, přáním i obavám. Díky tomu dokážeme nalézt ta nejvhodnější řešení právě pro Vaši situaci. Naším cílem je, aby se každý klient cítil komfortně a odcházel naprosto spokojen s nadstandardní péčí naší kanceláře.</p>
+                    </div>
+                </div>
+                <div class="about-us-image">
+                    <img src="{{ asset("build/images/barak-brno.png") }}" alt=""/>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="blog">
+        <div class="container">
+            <div class="blog-wrapper">
+                <div class="blog-list-header">
+                    <h2 class="blog-header-title display-md">Čtěte dále</h2>
+{#                    <p class="blog-header-supportive text-xl">Lorem ipsum dolor et samet</p>#}
+                </div>
+                {{ macros.renderBlogList() }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

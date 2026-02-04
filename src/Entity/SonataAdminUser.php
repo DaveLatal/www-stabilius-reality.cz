@@ -9,7 +9,7 @@ class SonataAdminUser extends BaseUser
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    protected ?int $id = null;
+    protected $id = null;
 }
 
 

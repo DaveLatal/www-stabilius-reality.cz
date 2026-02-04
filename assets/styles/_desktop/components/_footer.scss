@@ -1,6 +1,16 @@
+@use "../commons/mixins";
+
 footer{
     padding: 48px 112px;
     background: #101E18;
+    @include mixins.tablet() {
+        padding: 40px 16px;
+
+    }
+    @include mixins.mobile() {
+        padding: 40px 16px;
+
+    }
 }
 
 .footer-wrapper{
@@ -24,6 +34,15 @@ footer{
         align-self: stretch;
         flex-grow: 0;
 
+        @include mixins.tablet() {
+            flex-direction: column;
+
+        }
+        @include mixins.mobile() {
+            flex-direction: column;
+
+        }
+
         .footer-logo-adress{
             display: flex;
             flex-direction: column;
@@ -33,10 +52,20 @@ footer{
             width: 320px;
             min-width: 320px;
             max-width: 320px;
-            height: 248px;
+            //height: 248px;
+            height: auto;
             flex: none;
             order: 0;
             flex-grow: 1;
+
+            @include mixins.tablet() {
+                flex-direction: column;
+
+            }
+            @include mixins.mobile() {
+                flex-direction: column;
+
+            }
 
             img{
                 width: 178px;
@@ -98,7 +127,8 @@ footer{
             gap: 16px;
             width: 266.67px;
             min-width: 96px;
-            height: 168px;
+            //height: 168px;
+            height: auto;
             flex: none;
             order: 1;
             flex-grow: 1;
@@ -170,6 +200,16 @@ footer{
         align-self: stretch;
         flex-grow: 0;
 
+        @include mixins.tablet() {
+            height: auto;
+            flex-direction: column;
+
+        }
+        @include mixins.mobile() {
+            flex-direction: column;
+            height: auto;
+        }
+
         .footer-supportive-text{
             color: $neutral-400;
             font-weight: 400;
@@ -186,6 +226,13 @@ footer{
             order: 1;
             flex-grow: 0;
 
+            @include mixins.tablet() {
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
+
             a{
                 color: $neutral-400;
                 text-decoration: none;
@@ -198,6 +245,7 @@ footer{
 .footer-main-heading{
     font-weight: 600;
     color: $primary-500;
+    margin: 0;
 }
 
 .footer-links-list {

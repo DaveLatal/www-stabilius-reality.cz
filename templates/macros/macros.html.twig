@@ -1,6 +1,6 @@
-{# @var seller App\Entity\Seller #}
+{# @var broker App\Entity\Seller #}
 {# @var sellerPosition App\Entity\SellerPosition #}
-{# @var offer App\Entity\Reality #}
+{# @var offer App\DTO\PropertyDetailDTO #}
 {# @var contact App\Entity\Contact #}
 {# @var blog App\Entity\Blog #}
 {# @var route App\DTO\Breadcrumbs #}
@@ -53,16 +53,16 @@
 
 {% macro renderOfferItem(offer=null) %}
     {% if offer is not null %}
-        <div class="offer-tab" data-slug="{{ offer.slug }}">
+        <div class="offer-tab" data-slug="{{ offer.id }}">
             <div class="offer-tab-image">
-                <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
-                <div class="tag text-sm">Novinka</div>
+                <img src="{{ offer.columns['photo'] }}" alt="Barak brno" />
+                {% if 1 == 2 %}<div class="tag text-sm">Novinka</div>{% endif %}
             </div>
             <div class="offer-tab-content">
                 <div class="offer-tab-text">
-                    <p class="offer-title display-xs">{{ offer.title }}</p>
-                    <p class="offer-location text-md">{{ offer.title }}</p>
-                    <p class="offer-price text-lg">{{ offer.title }}</p>
+                    <p class="offer-title display-xs">{{ offer.title|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
+                    <p class="offer-location text-md">{{ offer.city }}, {{ offer.country }}</p>
+                    <p class="offer-price text-lg">{{ offer.price }} {{ offer.currency }}</p>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="offer-tab" data-slug="test">
         <div class="offer-tab-image">
             <img src="{{ asset("build/images/barak-brno.png") }}" alt="Barak brno" />
-            <div class="tag text-sm">Novinka</div>
+            {% if 1 == 2 %}<div class="tag text-sm">Novinka</div>{% endif %}
         </div>
         <div class="offer-tab-content">
             <div class="offer-tab-text">
@@ -81,4 +81,164 @@
         </div>
     </div>
     {% endif %}
+{% endmacro %}
+
+{% macro renderNavigationItems() %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link text-sm" href="{{ path('front_realities') }}">Nemovitosti</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-sm" href="{{ path('front_about_us') }}">O nás</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-sm" href="{{ path('front_services') }}">Služby</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-sm" href="{{ path('front_contacts') }}">Kontakty</a>
+        </li>
+        <li class="nav-item show-desktop">
+            <a class="nav-link nav-search-butt" href="#"><i class="icon icon-search"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-custom-dark text-sm text-weight-600" href="#">Chci prodat</a>
+        </li>
+    </ul>
+{% endmacro %}
+
+{% macro renderContactMenuItems() %}
+    <div class="container">
+        <div class="header-contact">
+            <div class="contacts">
+                <a href="tel:+420 777 123 456" class="text-sm"><i class="icon icon-phone"></i> +420 777 123 456</a>
+                <a href="mailto:info@stabilius-real.cz" class="text-sm"><i class="icon icon-mail"></i> info@stabilius-real.cz</a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderContactForm(broker=null) %}
+    <form class="seller-contact-form" data-broker="{% if broker is defined %}{{ broker }}{% endif %}">
+        <div class="seller-contact-form-row">
+            <div class="input-area">
+                <div class="label-wrapper">
+                    <label class="text-sm" id="name">Jméno</label>
+                </div>
+                <input type="text" aria-label="name" placeholder="Petr"/>
+            </div>
+            <div class="input-area">
+                <div class="label-wrapper">
+                    <label class="text-sm" id="surname">Příjmení</label>
+                </div>
+                <input type="text" aria-label="surname" placeholder="Novák"/>
+            </div>
+        </div>
+        <div class="seller-contact-form-row">
+            <div class="input-area">
+                <div class="label-wrapper">
+                    <label class="text-sm" id="email">Email</label>
+                </div>
+                <input type="text" aria-label="email" placeholder="novak@email.cz"/>
+            </div>
+            <div class="input-area">
+                <div class="label-wrapper">
+                    <label class="text-sm" id="phone">Telefon</label>
+                </div>
+                <input type="text" aria-label="phone" placeholder="+420 777 123 456"/>
+            </div>
+        </div>
+        <div class="input-textarea">
+            <div class="label-wrapper">
+                <label class="text-sm" id="message-text-label">Telefon</label>
+            </div>
+            <textarea name="message-text" placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
+        </div>
+        <div class="form-send-result">
+            <i class="icon icon-mail"></i><span id="form-send-result-msg" class="text-md">Zpráva odeslána!</span>
+        </div>
+        <div class="contact-seller-buttons-wrapper">
+            <div class="checkbox-wrapper">
+                <input type="checkbox" aria-label="agreed-lalbel"/>
+                <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>
+            </div>
+            <button id="send-mail" type="button" class="btn btn-custom-dark">Odeslat zprávu</button>
+        </div>
+    </form>
+
+{% endmacro %}
+
+{% macro renderBlogList(blogs=null) %}
+
+    <div class="blog-items-list-wrapper">
+        <div class="blog-items-list">
+            {% if blogs==null %}
+                <div class="blog-item">
+                    <img src="{{ asset("build/images/blog-01.png") }}" alt="Blog image 01"/>
+                    <div class="blog-item-description">
+                        <div class="blog-item-heading">
+                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <div class="blog-item-heading-texts">
+                                <div class="blog-item-heading-texts-title-wrapper">
+                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-item">
+                    <img src="{{ asset("build/images/blog-02.png") }}" alt="Blog image 02"/>
+                    <div class="blog-item-description">
+                        <div class="blog-item-heading">
+                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <div class="blog-item-heading-texts">
+                                <div class="blog-item-heading-texts-title-wrapper">
+                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-item">
+                    <img src="{{ asset("build/images/blog-03.png") }}" alt="Blog image 03"/>
+                    <div class="blog-item-description">
+                        <div class="blog-item-heading">
+                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <div class="blog-item-heading-texts">
+                                <div class="blog-item-heading-texts-title-wrapper">
+                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {% for blog in blogs %}
+                    <div class="blog-item">
+                        <img src="{{ blog.image }}" alt="Blog image 03"/>
+                        <div class="blog-item-description">
+                            <div class="blog-item-heading">
+                                <p class="blog-item-heading-subhead text-sm">{{ blog.publishedAt }}</p>
+                                <div class="blog-item-heading-texts">
+                                    <div class="blog-item-heading-texts-title-wrapper">
+                                        <p class="blog-item-heading-texts-title display-xs">{{ blog.title }}</p>
+                                        <i class="icon icon-arrow"></i>
+                                    </div>
+                                    <p class="blog-item-heading-texts-description">{{ blog.subtitle }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="blog-actions">
+            <a class="show-more btn btn-custom-dark">Všechny aktuality</a>
+        </div>
+    </div>
 {% endmacro %}

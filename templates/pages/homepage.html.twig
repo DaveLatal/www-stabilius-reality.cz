@@ -15,7 +15,7 @@
                      <p class="text-xl text-white text-weight-400">Pomáháme lidem bezpečně prodat i najít bydlení.</p>
                  </div>
                  <div class="hero-texts-links">
-                    <a class="show-offer text-md btn">Prohlédnout nabídku</a>
+                    <a class="show-offer text-md btn" href="{{ path('front_realities') }}">Prohlédnout nabídku</a>
                     <a class="sell-reality btn">Chci prodat nemovitost</a>
                  </div>
             </div>
@@ -113,9 +113,9 @@
                     <button class="tab-switcher text-sm btn">Novostavby</button>
                 </div>
 
-                {{ macros.renderOfferList() }}
+                {{ macros.renderOfferList(properties) }}
 
-                <a class="show-more btn btn-custom-dark">Prohlédnout nabídky</a>
+                <a class="show-more btn btn-custom-dark" href="{{ path('front_realities') }}">Prohlédnout nabídky</a>
             </div>
 
         </div>
@@ -128,59 +128,9 @@
                     <h2 class="blog-header-title display-md">Novinky z realitního trhu</h2>
                     <p class="blog-header-supportive text-xl">Lorem ipsum dolor et samet</p>
                 </div>
-                <div class="blog-items-list-wrapper">
-                    <div class="blog-items-list">
-                        <div class="blog-item">
-                            <img src="{{ asset("build/images/blog-01.png") }}" alt="Blog image 01"/>
-                            <div class="blog-item-description">
-                                <div class="blog-item-heading">
-                                    <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
-                                    <div class="blog-item-heading-texts">
-                                        <div class="blog-item-heading-texts-title-wrapper">
-                                            <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
-                                            <i class="icon icon-arrow"></i>
-                                        </div>
-                                        <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <img src="{{ asset("build/images/blog-02.png") }}" alt="Blog image 02"/>
-                            <div class="blog-item-description">
-                                <div class="blog-item-heading">
-                                    <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
-                                    <div class="blog-item-heading-texts">
-                                        <div class="blog-item-heading-texts-title-wrapper">
-                                            <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
-                                            <i class="icon icon-arrow"></i>
-                                        </div>
-                                        <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <img src="{{ asset("build/images/blog-03.png") }}" alt="Blog image 03"/>
-                            <div class="blog-item-description">
-                                <div class="blog-item-heading">
-                                    <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
-                                    <div class="blog-item-heading-texts">
-                                        <div class="blog-item-heading-texts-title-wrapper">
-                                            <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
-                                            <i class="icon icon-arrow"></i>
-                                        </div>
-                                        <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-actions">
-                        <a class="show-more btn btn-custom-dark">Všechny aktuality</a>
-                    </div>
-                </div>
+                {{ macros.renderBlogList() }}
             </div>
         </div>
     </section>
+
 {% endblock %}

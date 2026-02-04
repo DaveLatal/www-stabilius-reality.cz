@@ -1,34 +1,38 @@
-{# @var reality App\Entity\Reality #}
+{# @var reality App\DTO\PropertyDetailDTO #}
 
 {% extends "index.html.twig" %}
 {% import "./macros/macros.html.twig" as macros %}
-{% block titleText %}Nemovitosti{% endblock %}
+{% block titleText %}{{ reality.title }}{% endblock %}
 
 {% block appBody %}
     <section id="reality-gallery">
-        <a href="{{ asset('build/images/gallery/detail-barak-1.jpg') }}" class="image-link">
-            <img src="{{ asset('build/images/gallery/detail-barak-1.jpg') }}" alt="">
+        <a href="{{ reality.columns["photo"] }}" class="image-link">
+            <img src="{{ reality.columns["photo"] }}" alt="">
         </a>
         <div class="two-images">
-            <a href="{{ asset('build/images/gallery/detail-barak-2.jpg') }}" class="image-link">
-                <img src="{{ asset('build/images/gallery/detail-barak-2.jpg') }}" alt="">
+            <a href="{{ reality.images[0] }}" class="image-link show-desktop">
+                <img src="{{ reality.images[0] }}" alt="">
             </a>
-            <a href="{{ asset('build/images/gallery/detail-barak-3.jpg') }}" class="image-link">
-                <img src="{{ asset('build/images/gallery/detail-barak-3.jpg') }}" alt="">
+            <a href="{{ reality.images[1] }}" class="image-link show-desktop">
+                <img src="{{ reality.images[1] }}" alt="">
             </a>
         </div>
         <div class="rest-hidden">
-            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">
-                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">
-            </a>
-            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">
-                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">
-            </a>
-            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">
-                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">
-            </a>
-            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">
-                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">
+            {% for image in reality.images  %}
+                {% if loop.index > 2%}
+                    <a href="{{ image }}" class="image-link">
+                        <img src="{{ image }}" alt="">
+                    </a>
+                {% endif %}
+            {% endfor %}
+{#            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">#}
+{#                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">#}
+{#            </a>#}
+{#            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">#}
+{#                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">#}
+{#            </a>#}
+{#            <a href="{{ asset('build/images/barak-brno.png') }}" class="image-link">#}
+{#                <img src="{{ asset('build/images/barak-brno.png') }}" alt="">#}
             </a>
         </div>
     </section>
@@ -38,94 +42,223 @@
                 {{ macros.breadcrumb(breadcrumbs) }}
                 <div class="reality-body-title-wrapper">
                     <div class="reality-body-title-price">
-                        <h2 class="display-lg">Prodej rodinného domu</h2>
+                        <h2 class="display-lg">{{ reality.title }}</h2>
                         <div class="reality-location-text">
-                            <i class="icon icon-location-pin"></i> <span class="text-xl">Žabovřesky, Brno</span>
+                            <i class="icon icon-location-pin"></i> <span class="text-xl">{{ reality.city }}, {{ reality.district }}</span>
                         </div>
                     </div>
-                    <span class="display-md">8 990 000 Kč</span>
+                    <span class="display-md">{{ reality.price }} {{ reality.currency }}</span>
                 </div>
                 <div class="reality-body-description">
                     <h3 class="display-sm">Základní informace</h3>
-                    <p class="text-md">Lorem ipsum dolor sit amet consectetur. Lectus volutpat nunc vitae sapien auctor. Nunc quam adipiscing ultricies imperdiet nisi tortor sem in morbi. Curabitur facilisis vel eu semper mauris eleifend bibendum. Consectetur nisl pretium magna faucibus nec duis risus. A tortor aliquet libero mollis facilisi. Libero eros faucibus aliquam commodo curabitur egestas tellus commodo at. At sed consectetur pretium risus amet sapien purus. Dignissim at sed amet blandit tellus. Dictum eleifend egestas diam tortor eros faucibus tortor nunc eget. Ornare velit volutpat diam nisi eget praesent nibh tempus. Metus ac nisl enim netus augue augue.
-                        Lorem diam nunc sagittis amet. Amet duis volutpat magna lectus dui. Est nunc odio sed id sed integer enim et. Ut duis nunc gravida mattis nam dui integer. Aenean eu nisl eu volutpat faucibus sed duis libero. Porttitor morbi eget tincidunt tellus egestas. Nunc malesuada at diam bibendum nulla. Nullam aliquam aliquam posuere iaculis porta.</p>
+                    <p class="text-md">{{ reality.description }}</p>
                 </div>
-                <table class="reality-info-table table-responsive">
-                    <tr>
-                        <td>
-                            <span class="text-sm">ID nabídky</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">BR1234</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Poznámka k ceně</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">včetně provize, včetně DPH</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Příslušenství</span>
-                        </td>
-                        <td>
-                            <div class="badges">
-                                <div class="badge"><span class="text-xs">Výtah</span></div>
-                                <div class="badge"><span class="text-xs">Sklep</span></div>
-                                <div class="badge"><span class="text-xs">Částečně vybaveno</span></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Stavba</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">Cihlová, V super stavu</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Infrastruktura</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">230V, plyn, kanalizace, voda, elektřina</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Plocha</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">Celkem 450 m2</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Vlastnictví</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">Osobní</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-sm">Ostatní</span>
-                        </td>
-                        <td>
-                            <span class="text-sm">K nastěhování ihned</span>
-                        </td>
-                    </tr>
-                </table>
+                {% if reality.columns['typ_nemovitosti'] == "Pozemky" %}
+                    <table class="reality-info-table table-responsive">
+                        <tr>
+                            <td>
+                                <span class="text-sm">ID nabídky</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.id }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Poznámka k ceně</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['cena_poznamka'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Doprava</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['doprava'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_pozemek'] }} m2</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                {% elseif reality.columns['typ_nemovitosti'] == "Domy" %}
+                    <table class="reality-info-table table-responsive">
+                        <tr>
+                            <td>
+                                <span class="text-sm">ID nabídky</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.id }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Poznámka k ceně</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['cena_poznamka'] }}</span>
+                            </td>
+                        </tr>
+{#                        <tr>#}
+{#                            <td>#}
+{#                                <span class="text-sm">Příslušenství</span>#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <div class="badges">#}
+{#                                    <div class="badge"><span class="text-xs">Výtah</span></div>#}
+{#                                    <div class="badge"><span class="text-xs">Sklep</span></div>#}
+{#                                    <div class="badge"><span class="text-xs">Částečně vybaveno</span></div>#}
+{#                                </div>#}
+{#                            </td>#}
+{#                        </tr>#}
+                        <tr>
+                            <td>
+                                <span class="text-sm">Stavba</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['konstrukce_budovy'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Infrastruktura</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['site'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha užitná</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_uzitna'] }} m2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha podlahová</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_podlahova'] }} m2</span>
+                            </td>
+                        </tr>
+
+{#                        <tr>#}
+{#                            <td>#}
+{#                                <span class="text-sm">Ostatní</span>#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <span class="text-sm">{{ reality.columns['ostatni'] }}</span>#}
+{#                            </td>#}
+{#                        </tr>#}
+                    </table>
+                {% elseif reality.columns['typ_nemovitosti'] == "Byty" %}
+                    <table class="reality-info-table table-responsive">
+                        <tr>
+                            <td>
+                                <span class="text-sm">ID nabídky</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.id }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Poznámka k ceně</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['cena_poznamka'] }}</span>
+                            </td>
+                        </tr>
+                        {#                        <tr>#}
+                        {#                            <td>#}
+                        {#                                <span class="text-sm">Příslušenství</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <div class="badges">#}
+                        {#                                    <div class="badge"><span class="text-xs">Výtah</span></div>#}
+                        {#                                    <div class="badge"><span class="text-xs">Sklep</span></div>#}
+                        {#                                    <div class="badge"><span class="text-xs">Částečně vybaveno</span></div>#}
+                        {#                                </div>#}
+                        {#                            </td>#}
+                        {#                        </tr>#}
+                        <tr>
+                            <td>
+                                <span class="text-sm">Stavba</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['konstrukce_budovy'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Infrastruktura</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['site'] }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha užitná</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_uzitna'] }} m2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha podlahová</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_podlahova'] }} m2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Plocha sklep</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">Celkem {{ reality.columns['plocha_sklep'] }} m2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-sm">Vlastnictví</span>
+                            </td>
+                            <td>
+                                <span class="text-sm">{{ reality.columns['vlastnictvi'] }}</span>
+                            </td>
+                        </tr>
+                        {#                        <tr>#}
+                        {#                            <td>#}
+                        {#                                <span class="text-sm">Ostatní</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span class="text-sm">{{ reality.columns['ostatni'] }}</span>#}
+                        {#                            </td>#}
+                        {#                        </tr>#}
+                    </table>
+                {% endif %}
                 <div class="reality-location-map-wrapper">
                     <div class="reality-location-map-title-wrapper">
                         <h3 class="display-sm">Lokalita</h3>
                         <span class="text-md">Lokalita je orientační. Nemovitost se nachází ve vyznačené oblasti na mapě.</span>
                     </div>
-                    {{ ux_map(map, { style: 'height: 384px', id: 'reality-map', class: 'reality-map-render' }) }}
+
+                    <div id="reality-map-render" data-api-key="{{ google_maps_api_key }}" class="reality-map-render">
+                        <input type="hidden" id="map-render-lat" value="{{ reality.gpsLat }}" />
+                        <input type="hidden" id="map-render-lng" value="{{ reality.gpsLng }}" />
+                    </div>
                 </div>
                 <div class="reality-contact-seller-wrapper">
                     <h3 class="display-sm">Napsat prodejci</h3>

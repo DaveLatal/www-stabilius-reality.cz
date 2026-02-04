@@ -30,6 +30,9 @@ class Seller
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'seller')]
     private Collection $contacts;
 
+    #[ORM\ManyToOne(inversedBy: 'sellers')]
+    private ?ContactsPage $contactsPage = null;
+
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
@@ -102,6 +105,18 @@ class Seller
                 $contact->setSeller(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getContactsPage(): ?ContactsPage
+    {
+        return $this->contactsPage;
+    }
+
+    public function setContactsPage(?ContactsPage $contactsPage): static
+    {
+        $this->contactsPage = $contactsPage;
 
         return $this;
     }

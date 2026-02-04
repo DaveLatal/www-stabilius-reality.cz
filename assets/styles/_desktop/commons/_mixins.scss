@@ -1,0 +1,45 @@
+@use "breakpoints" as *;
+
+// min-width
+@mixin up($size) {
+    @media (min-width: map-get($breakpoints, $size)) {
+        @content;
+    }
+}
+
+@mixin down($size) {
+    @media (max-width: map-get($breakpoints, $size) - 1px) {
+        @content;
+    }
+}
+
+@mixin between($min, $max) {
+    @media (min-width: map-get($breakpoints, $min)) and
+    (max-width: map-get($breakpoints, $max) - 1px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @include down(md) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @include between(md, lg) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @include up(lg) {
+        @content;
+    }
+}
+
+@mixin desktopXL {
+    @include up(xxl) {
+        @content;
+    }
+}

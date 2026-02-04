@@ -10,16 +10,16 @@
             <h2 class="display-lg text-white">Nemovitosti</h2>
         </div>
     </section>
-    <section id="real-filter">
+    <section id="real-filter" class="d-none">
         <div class="container">
             <div class="real-filter-wrapper">
                 <div class="real-filter-categories">
-                    <div class="cat-tab">
+                    <div class="cat-tab active">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-smile"></i> <span>Vše</span>
                             </div>
-                            <span>1 876</span>
+                            <span>{{ properties|length }}</span>
                         </div>
                     </div>
                     <div class="cat-tab">
@@ -30,7 +30,7 @@
                             <span>1 876</span>
                         </div>
                     </div>
-                    <div class="cat-tab active">
+                    <div class="cat-tab">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-03"></i> <span>Domy</span>
@@ -74,12 +74,14 @@
                             <label>Typ nabídky</label>
                             <select aria-label="">
                                 <option>Vše</option>
+                                <option>Prodej</option>
+                                <option>Pronájem</option>
                             </select>
                         </div>
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
-                            <label>Typ nabídky</label>
+                            <label>Výběr kraje</label>
                             <select aria-label="">
                                 <option>Vše</option>
                             </select>
@@ -87,7 +89,7 @@
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
-                            <label>Typ nabídky</label>
+                            <label>Okres</label>
                             <select aria-label="">
                                 <option>Vše</option>
                             </select>
@@ -95,7 +97,7 @@
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
-                            <label>Typ nabídky</label>
+                            <label>Lokalita</label>
                             <select aria-label="">
                                 <option>Vše</option>
                             </select>
@@ -103,7 +105,7 @@
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
-                            <label>Typ nabídky</label>
+                            <label>Cena</label>
                             <select aria-label="">
                                 <option>Vše</option>
                             </select>
@@ -112,7 +114,7 @@
 
                 </div>
                 <button class="btn btn-custom-dark">
-                    Vyhledat 234 nemovitostí
+                    Vyhledat {{ properties|length }} nemovitostí
                 </button>
             </div>
         </div>
@@ -121,30 +123,40 @@
         <div class="container">
             <div class="real-results-wrapper">
                 <div class="real-results-upper-controls">
-                    <span class="text-md">Nalezeno: 234 nemovitstí</span>
+                    <span class="text-md">Nalezeno: <br class="show-mobile"> 234 nemovitostí</span>
                     <div class="results-upper-controls-wrapper">
-                        <label id="real-sorting" class="text-md">Řadit:</label>
+                        <label id="real-sorting" class="text-md">Řadit podle:</label>
                         <select aria-label="real-sorting">
-                            <option>Neřadit</option>
+                            <option value="0">Neřadit</option>
+                            <option>Cena vzestupně</option>
+                            <option>Cena sestupně</option>
+                            <option>Vzdálenost vzestupně</option>
+                            <option>Vzdálenost sestupně</option>
                         </select>
                     </div>
                 </div>
-                {{ macros.renderOfferList(null, 12) }}
+                {{ macros.renderOfferList(properties) }}
                 <div class="real-results-pagination-wrapper">
                     <div class="pagination-button-wrap">
-                        <button class="btn" disabled><i class="icon icon-arrow-l"></i> Předchozí</button>
+                        <button class="btn" disabled><i class="icon icon-arrow-l"></i> <span class="show-desktop">Předchozí</span></button>
                     </div>
                     <div class="pagination-numbers-wrap">
-                        <a class="btn active"><div class="pagination-content">1</div></a>
-                        <a class="btn"><div class="pagination-content">2</div></a>
-                        <a class="btn"><div class="pagination-content">3</div></a>
-                        <a class="btn disabled"><div class="pagination-content">...</div></a>
-                        <a class="btn"><div class="pagination-content">8</div></a>
-                        <a class="btn"><div class="pagination-content">7</div></a>
-                        <a class="btn"><div class="pagination-content">9</div></a>
+                        <a class="btn disabled"><div class="pagination-content">1</div></a>
+                    </div>
+{#                    <div class="pagination-numbers-wrap">#}
+{#                        <a class="btn active"><div class="pagination-content">1</div></a>#}
+{#                        <a class="btn"><div class="pagination-content">2</div></a>#}
+{#                        <a class="btn"><div class="pagination-content">3</div></a>#}
+{#                        <a class="btn disabled"><div class="pagination-content">...</div></a>#}
+{#                        <a class="btn"><div class="pagination-content">8</div></a>#}
+{#                        <a class="btn"><div class="pagination-content">7</div></a>#}
+{#                        <a class="btn"><div class="pagination-content">9</div></a>#}
+{#                    </div>#}
+                    <div class="pagination-mobile-numbers-wrap">
+                        <span class="text-sm">Strana <b>1</b> z <b>10</b> </span>
                     </div>
                     <div class="pagination-button-wrap right">
-                        <button>Následující <i class="icon icon-arrow-r"></i></button>
+                        <button class="btn" disabled><span class="show-desktop">Následující</span> <i class="icon icon-arrow-r"></i></button>
                     </div>
                 </div>
             </div>

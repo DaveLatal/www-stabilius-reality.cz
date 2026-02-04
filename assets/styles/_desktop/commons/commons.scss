@@ -1,9 +1,12 @@
+@use "mixins";
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import "~bootstrap/scss/bootstrap";
 @import "variables";
 @import "typography";
 @import "icons";
 @import "buttons";
+
+
 
 body{
     width: 100%;
@@ -23,23 +26,43 @@ body{
     margin: 0 auto;
     display: block;
     --bs-gutter-x: 0 !important;
-}
 
-// visibility.scss
-$breakpoints: (
-    mobile: 0,
-    tablet: 768px,
-    desktop: 1024px
-);
+    @include mixins.tablet() {
+        max-width: 100%;
 
-@each $name, $value in $breakpoints {
-    .show-#{$name} {
-        display: none;
 
-        @media (min-width: $value) {
-            display: block;
-        }
+    }
+    @include mixins.mobile() {
+        max-width: 100%;
     }
 }
 
+.show-desktop{
+    display: flex ;
+    @include mixins.tablet() {
+        display: none;
+    }
+    @include mixins.mobile() {
+        display: none;
+    }
+}
 
+.show-tablet{
+    display: none;
+    @include mixins.tablet() {
+        display: flex;
+    }
+    @include mixins.mobile() {
+        display: none;
+    }
+}
+
+.show-mobile{
+    display: none;
+    @include mixins.tablet() {
+        display: none;
+    }
+    @include mixins.mobile() {
+        display: block;
+    }
+}

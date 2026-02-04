@@ -1,0 +1,21 @@
+{% extends "index.html.twig" %}
+{% import "./macros/macros.html.twig" as macros %}
+{% block titleText %}Služby{% endblock %}
+
+{% block appBody %}
+    <section id="real-hero">
+        <div class="container position-relative">
+            <div class="real-hero-vectors"></div>
+            {{ macros.breadcrumb(breadcrumbs) }}
+            <h2 class="display-lg text-white">Služby</h2>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="services-wrapper">
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

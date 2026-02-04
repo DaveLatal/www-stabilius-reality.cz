@@ -1,3 +1,5 @@
+@use "../commons/mixins";
+
 section.header{
     display: flex;
     flex-direction: column;
@@ -11,6 +13,18 @@ section.header{
     display: flex;
     flex-direction: row-reverse;
 
+    @include mixins.tablet() {
+        height: auto;
+        padding: 16px;
+        flex-direction: column;
+
+    }
+    @include mixins.mobile() {
+        height: auto;
+        flex-direction: column;
+        padding: 16px;
+    }
+
     &-bg{
         background: $primary-50;
     }
@@ -19,6 +33,17 @@ section.header{
         display: flex;
         align-items: center;
         gap: $text-sm;
+
+        @include mixins.tablet() {
+            align-items: start;
+            flex-direction: column;
+            gap: 20px;
+        }
+        @include mixins.mobile() {
+            flex-direction: column;
+            align-items: start;
+            gap: 20px;
+        }
 
         a{
             color: $primary-500;
@@ -38,7 +63,15 @@ section.header{
     display: flex;
     justify-content: space-between;
     padding: 18px 0;
+    background: #FFFFFF;
+    position: relative;
 
+    @include mixins.tablet() {
+        padding: 16px;
+    }
+    @include mixins.mobile() {
+        padding: 16px;
+    }
     .header-logo{
         width: 200px;
         height: fit-content;
@@ -46,12 +79,48 @@ section.header{
 
     #navbar{
 
+        //@include mixins.tablet() {
+        //    top: 40px;
+        //    right: 0;
+        //    position: absolute;
+        //
+        //}
+        //@include mixins.mobile() {
+        //    top: 40px;
+        //    right: 0;
+        //    position: absolute;
+        //
+        //}
+
+
         ul{
             height: 40px;
             display: flex;
             align-items: center;
             gap: 20px;
+
+            @include mixins.tablet() {
+                width: 100%;
+                background: #FFFFFF;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+                background: #FFFFFF;
+            }
+
+            li{
+                @include mixins.tablet() {
+                    width: 100%;
+                    background: #FFFFFF;
+                }
+                @include mixins.mobile() {
+                    width: 100%;
+                    background: #FFFFFF;
+                }
+            }
         }
+
+
     }
 
 }
@@ -88,6 +157,18 @@ section.header{
     justify-content: center;
     align-items: center;
 
+    @include mixins.tablet() {
+        width: 100%;
+        top: 72px;
+        height: auto;
+        background: #FFFFFF;
+    }
+    @include mixins.mobile() {
+        width: 100%;
+        top: 72px;
+        height: auto;
+        background: #FFFFFF;
+    }
     &.active{
        // display: flex;
     }
@@ -98,6 +179,13 @@ section.header{
         justify-content: center;
         align-items: center;
         gap: 16px;
+
+        @include mixins.tablet() {
+            flex-direction: column;
+        }
+        @include mixins.mobile() {
+            flex-direction: column;
+        }
 
         input.search-reality-top-d{
             box-sizing: border-box;
@@ -136,6 +224,13 @@ section.header{
             flex-grow: 0;
             color: white;
 
+            @include mixins.tablet() {
+                width: 100%;
+
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
             i{
                 --size: 15px;
             }
@@ -144,3 +239,73 @@ section.header{
 
 
 }
+
+.navbar{
+    display: flex;
+    gap: 16px;
+    .menu-item{
+        height: 40px;
+        width: 40px;
+        align-items: center;
+        align-content: center;
+        span{
+            display: flex;
+            align-items: center;
+            align-content: center;
+            .icon{
+                --size:15px;
+            }
+        }
+
+    }
+
+}
+
+.nav-search-click{
+    border: 0;
+    background: inherit;
+}
+
+.mobile-nav-bar{
+    display: none;
+    position: absolute;
+    width: 100%;
+    padding: 16px;
+    left: 0;
+    background: white;
+    top: 71px;
+    z-index: 20;
+
+    &.active{
+        display: flex;
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 20px;
+        width:100%;
+        flex: none;
+        order: 0;
+        flex-grow: 1;
+
+        li{
+            width: 100%;
+            .btn-custom-dark{
+                width: 100%;
+            }
+        }
+    }
+    .header-contact-bg{
+        width: 100%;
+        position: absolute;
+        bottom: -100px;
+        left: 0;
+        height: 100px;
+
+    }
+}
+
+
