@@ -13,57 +13,101 @@ class PropertyFetcherRepository
 
     public function __construct()
     {
-        $this->client = HttpClient::create([   'timeout' => 20,
+        $this->client = HttpClient::create([
+            'timeout' => 20,
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36',
                 'Accept' => 'application/xml,text/xml;q=0.9,*/*;q=0.8',
-            ],]);
+            ],
+        ]);
     }
 
     public function fetchProperties(): array
     {
-        //        $response = $this->client->request('GET', 'https://eurobydleni.cz/download/full_list_xml.php?username=6918&password=152219', [
-//            'query' => [
-//                'username' => '6918',
-//                'password' => '152219',
-//                'page' => 1,
-////                'type' => 'list', // ← IMPORTANT
-//            ],
-//        ]);
         $response = $this->client->request('GET', 'https://eurobydleni.cz/download/full_list_xml.php?username=6918&password=152219');
-
         $xmlString = $response->getContent();
         $items = PropertyListItemDTO::listFromXml($xmlString);
-        $properties = [];
-        foreach ($items as $item){
-            $stringURL='https://eurobydleni.cz/download/full_list_xml.php?username=6918&password=152219&property_id='.$item->id;
-            $response_detail = $this->client->request('GET',$stringURL);
-            $xmlDetailString = $response_detail->getContent();
-            $xml = new \SimpleXMLElement($xmlDetailString);
-            $propertyNode = $xml->property;
 
-            $item = PropertyDetailDTO::fromXml(
-                $item->id,
-                $propertyNode
-            );
-            $properties[]=$item;
+
+        $properties = [];
+        foreach ($items as $item) {
+            $properties[] = $this->fetchPropertyDetail($item->id);
         }
 
-        dump($properties);
         return $properties;
     }
 
-    public function fetchPropertyDetail($id): PropertyDetailDTO
+    public function fetchPropertyDetail(string $id): PropertyDetailDTO
     {
-        $stringURL='https://eurobydleni.cz/download/full_list_xml.php?username=6918&password=152219&property_id='.$id;
-        $response_detail = $this->client->request('GET',$stringURL);
-        $xmlDetailString = $response_detail->getContent();
-        $xml = new \SimpleXMLElement($xmlDetailString);
-        $propertyNode = $xml->property;
+        $url = 'https://eurobydleni.cz/download/full_list_xml.php?username=6918&password=152219&property_id=' . $id;
+        $response = $this->client->request('GET', $url);
+        $xml = new \SimpleXMLElement($response->getContent());
 
-        return PropertyDetailDTO::fromXml(
-            $id,
-            $propertyNode
-        );
+        return PropertyDetailDTO::fromXml($id, $xml->property);
     }
+
+    /**
+     * Filter properties in-memory with optional search, categories, sorting, and limit
+     *
+     * @param PropertyDetailDTO[] $properties
+     * @param string|null $search Full-text search
+     * @param string|null $mainCategory Main category filter
+     * @param string|null $subCategory Subcategory filter
+     * @param string|null $sortBy Field to sort by ('price', 'title', 'city', etc.)
+     * @param string $sortDirection 'asc' or 'desc'
+     * @param int|null $limit Max number of results
+     *
+     * @return PropertyDetailDTO[]
+     */
+    public function filterProperties(
+        array $properties,
+        ?string $search = null,
+        ?string $mainCategory = null,
+        ?string $subCategory = null,
+        ?string $sortBy = null,
+        string $sortDirection = 'asc',
+        ?int $limit = null
+    ): array {
+        // 1️⃣ Filter
+        $filtered = array_filter($properties, function (PropertyDetailDTO $p) use ($search, $mainCategory, $subCategory) {
+            if ($search && !$p->matchesSearch($search)) {
+                return false;
+            }
+            if (!$p->matchesCategory($mainCategory, $subCategory)) {
+                return false;
+            }
+            return true;
+        });
+
+        // 2️⃣ Sort
+        if ($sortBy !== null) {
+            usort($filtered, function (PropertyDetailDTO $a, PropertyDetailDTO $b) use ($sortBy, $sortDirection) {
+                $valA = $a->{$sortBy} ?? null;
+                $valB = $b->{$sortBy} ?? null;
+
+                // Handle numeric sort for price or area
+                if (in_array($sortBy, ['price', 'areaLand', 'areaUsable'])) {
+                    $valA = floatval(str_replace(',', '.', $valA ?? 0));
+                    $valB = floatval(str_replace(',', '.', $valB ?? 0));
+                } else {
+                    $valA = strtolower((string)($valA ?? ''));
+                    $valB = strtolower((string)($valB ?? ''));
+                }
+
+                if ($valA === $valB) return 0;
+
+                $result = $valA < $valB ? -1 : 1;
+
+                return $sortDirection === 'asc' ? $result : -$result;
+            });
+        }
+
+        // 3️⃣ Limit
+        if ($limit !== null) {
+            $filtered = array_slice($filtered, 0, $limit);
+        }
+
+        return array_values($filtered);
+    }
+
 }

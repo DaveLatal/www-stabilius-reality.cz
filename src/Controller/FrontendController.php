@@ -39,8 +39,18 @@ class FrontendController extends AbstractController
 
         $properties = $this->propertyFetcherRepository->fetchProperties();
 
+        $resultsHp = $this->propertyFetcherRepository->filterProperties(
+            $properties,
+            null,
+            null,
+            null,
+            sortBy: 'city',
+            sortDirection: 'asc',
+            limit: 6
+        );
+
         return $this->render('pages/homepage.html.twig',[
-            "properties"=>$properties
+            "properties"=>$resultsHp
         ]);
     }
 
@@ -49,9 +59,20 @@ class FrontendController extends AbstractController
     {
         $breadcrumbs = $breadcrumbsFactory->create();
         $properties = $this->propertyFetcherRepository->fetchProperties();
+
+        $results = $this->propertyFetcherRepository->filterProperties(
+            $properties,
+            null,
+            null,
+            null,
+            sortBy: 'city',
+            sortDirection: 'asc',
+            limit: 10
+        );
+
         return $this->render('pages/realities.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
-            "properties"=>$properties
+            "properties"=>$results
         ]);
     }
     #[Route('/nemovitost/{id}', name: 'front_realitiy_detail')]
@@ -69,12 +90,23 @@ class FrontendController extends AbstractController
             ->minZoom(3) // Set the minimum zoom level
             ->maxZoom(10) // Set the maximum zoom level
         ;
+        $properties = $this->propertyFetcherRepository->fetchProperties();
+        $resultsSimiliar = $this->propertyFetcherRepository->filterProperties(
+            $properties,
+            null,
+            $property->columns["typ_nemovitosti"],
+            null,
+            sortBy: 'city',
+            sortDirection: 'asc',
+            limit: 3
+        );
 
         return $this->render('pages/reality-detail.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
             "reality"=>$property,
             "google_maps_api_key"=>$googleMapsApiKey,
-            "reality_location_map"=>$map
+            "reality_location_map"=>$map,
+            "similiar"=>$resultsSimiliar
         ]);
     }
 
