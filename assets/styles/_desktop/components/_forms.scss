@@ -1,0 +1,367 @@
+@use "../commons/mixins";
+
+.seller-contact-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 24px;
+    width: 656px;
+    //height: 424px;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+
+    @include mixins.tablet() {
+        height: auto;
+        width: 100%;
+    }
+    @include mixins.mobile() {
+        height: auto;
+        width: 100%;
+    }
+
+    .seller-contact-form-row{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        gap: 16px;
+        width: 100%;
+        height: 66px;
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 0;
+
+        @include mixins.tablet() {
+            height: auto;
+            width: 100%;
+            flex-direction: column;
+        }
+        @include mixins.mobile() {
+            height: auto;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .input-area{
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0;
+            gap: 6px;
+            //width: 100%;
+            width: 320px;
+            height: 66px;
+            flex: none;
+            align-self: stretch;
+            flex-grow: 0;
+
+            @include mixins.tablet() {
+                height: auto;
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                height: auto;
+                width: 100%;
+            }
+
+            .label-wrapper{
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 0;
+                gap: 2px;
+                //width: 50px;
+                height: 20px;
+                flex: none;
+                order: 0;
+                flex-grow: 0;
+
+                @include mixins.tablet() {
+                    height: auto;
+                    width: 100%;
+                }
+                @include mixins.mobile() {
+                    height: auto;
+                    width: 100%;
+                }
+
+                label{
+
+                    //width: 50px;
+                    height: 20px;
+                    font-weight: 500;
+                    color: #414651;
+                    flex: none;
+                    order: 0;
+                    flex-grow: 0;
+
+                }
+            }
+
+            input{
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 8px 12px;
+                gap: 8px;
+                width: 100%;
+                height: 40px;
+                background: #FFFFFF;
+                border: 1px solid #D5D7DA;
+                box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+                border-radius: 8px;
+                flex: none;
+                order: 1;
+                align-self: stretch;
+                flex-grow: 0;
+
+                @include mixins.tablet() {
+                    height: auto;
+                    width: 100%;
+                }
+                @include mixins.mobile() {
+                    height: auto;
+                    width: 100%;
+                }
+
+            }
+        }
+
+
+    }
+
+    .form-send-result{
+        display: none;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        padding: 16px;
+        background: #abfdd2;
+        gap: 4px;
+
+        &.active{
+            display: flex;
+        }
+
+        .icon {
+            color: $primary-500;
+            --size: 20px;
+        }
+    }
+
+    .input-textarea{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        gap: 6px;
+        isolation: isolate;
+        width: 656px;
+        height: 180px;
+        flex: none;
+        order: 2;
+        align-self: stretch;
+        flex-grow: 0;
+
+        @include mixins.tablet() {
+            width: 100%;
+        }
+        @include mixins.mobile() {
+            width: 100%;
+        }
+
+        .label-wrapper{
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0;
+            gap: 2px;
+            //width: 50px;
+            height: 20px;
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+
+            @include mixins.tablet() {
+                height: auto;
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                height: auto;
+                width: 100%;
+            }
+
+
+            label{
+
+                //width: 50px;
+                height: 20px;
+                font-weight: 500;
+                color: #414651;
+                flex: none;
+                order: 0;
+                flex-grow: 0;
+                @include mixins.tablet() {
+                    height: auto;
+                    width: 100%;
+                }
+                @include mixins.mobile() {
+                    height: auto;
+                    width: 100%;
+                }
+
+            }
+        }
+
+        textarea{
+            resize: none;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 12px 14px;
+            gap: 8px;
+            isolation: isolate;
+            width: 656px;
+            height: 154px;
+            background: #FFFFFF;
+            border: 1px solid #D5D7DA;
+            box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+            border-radius: 8px;
+            flex: none;
+            order: 1;
+            align-self: stretch;
+            flex-grow: 1;
+            @include mixins.tablet() {
+                height: 154px;
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                height: 154px;
+                width: 100%;
+            }
+        }
+    }
+
+    .contact-seller-buttons-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        gap: 104px;
+        width: 656px;
+        height: 40px;
+        flex: none;
+        order: 3;
+        align-self: stretch;
+        flex-grow: 0;
+
+        @include mixins.tablet() {
+            height: auto;
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
+        }
+        @include mixins.mobile() {
+            height: auto;
+            width: 100%;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .checkbox-wrapper{
+
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0;
+            gap: 8px;
+            margin: 0;
+            width: 336px;
+            height: 40px;
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+
+            @include mixins.tablet() {
+                height: auto;
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                height: auto;
+                width: 100%;
+            }
+
+            input{
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 2px 0px 0px;
+
+                width: 16px;
+                height: 18px;
+
+                flex: none;
+                order: 0;
+                flex-grow: 0;
+
+            }
+
+            label{
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+                width: 312px;
+                height: 40px;
+                flex: none;
+                order: 1;
+                flex-grow: 1;
+                font-weight: 500;
+                @include mixins.tablet() {
+                    height: auto;
+                    width: 100%;
+                }
+                @include mixins.mobile() {
+                    height: auto;
+                    width: 100%;
+                }
+
+            }
+        }
+
+        button{
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+            .spinner-border{
+                display: none;
+                width: 16px;
+                height: 16px;
+
+                &.active{
+                    display: block;
+                }
+            }
+
+            @include mixins.tablet() {
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
+
+        }
+    }
+}

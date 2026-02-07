@@ -53,10 +53,14 @@
 
 {% macro renderOfferItem(offer=null) %}
     {% if offer is not null %}
-        <div class="offer-tab" data-slug="{{ offer.id }}">
+        <div class="offer-tab {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato"%}sold{% endif %}" data-slug="{{ offer.id }}">
+            {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato"%}
+                <div class="sold"></div>
+            {% endif %}
             <div class="offer-tab-image">
                 <img src="{{ offer.columns['photo'] }}" alt="Barak brno" />
-                {% if offer.columns['stav'] == "Rezervováno, jen vlastní web" %}<div class="tag text-sm">Prodáno</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "Prodáno" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "Pronajato" %}<div class="tag sold text-sm">Pronajato</div>{% endif %}
             </div>
             <div class="offer-tab-content">
                 <div class="offer-tab-text">
@@ -91,9 +95,9 @@
         <li class="nav-item">
             <a class="nav-link text-sm" href="{{ path('front_about_us') }}">O nás</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-sm" href="{{ path('front_services') }}">Služby</a>
-        </li>
+{#        <li class="nav-item">#}
+{#            <a class="nav-link text-sm" href="{{ path('front_services') }}">Služby</a>#}
+{#        </li>#}
         <li class="nav-item">
             <a class="nav-link text-sm" href="{{ path('front_contacts') }}">Kontakty</a>
         </li>
@@ -161,7 +165,10 @@
                 <input name="agree-send-mail" id="agree-send-mail" type="checkbox" aria-label="agreed-lalbel"/>
                 <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>
             </div>
-            <button id="send-mail" type="button" class="btn btn-custom-dark">Odeslat zprávu</button>
+            <button id="send-mail" type="button" class="btn btn-custom-dark">
+                <div id="mail-spinner" class="spinner-border" role="status">
+                </div>
+                Odeslat zprávu</button>
         </div>
     </form>
 
@@ -241,4 +248,140 @@
             <a class="show-more btn btn-custom-dark">Všechny aktuality</a>
         </div>
     </div>
+{% endmacro %}
+
+{% macro renderPropertyAssetsTable(reality) %}
+    {% set attributes = {
+        'id':            { label: 'ID nabídky' },
+        'cena_poznamka': { label: 'Poznámka k ceně' },
+        'doprava':       { label: 'Doprava' },
+        'vlastnictvi':   { label: 'Vlastnictví' },
+        'konstrukce_budovy': { label: 'Stavba' },
+        'site':          { label: 'Infrastruktura' },
+
+        'plocha_pozemek':    { label: 'Plocha pozemku', unit: 'm2' },
+        'plocha_uzitna':     { label: 'Plocha užitná', unit: 'm2' },
+        'plocha_podlahova':  { label: 'Plocha podlahová', unit: 'm2' },
+        'plocha_sklep':      { label: 'Plocha sklep', unit: 'm2' },
+        'plocha_balkon':     { label: 'Plocha balkon', unit: 'm2' },
+        'plocha_terasa':     { label: 'Plocha terasa', unit: 'm2' },
+
+        'dispozice':     { label: 'Dispozice' },
+        'podlazi':       { label: 'Podlaží' },
+        'pocet_pokoju':  { label: 'Počet pokojů' },
+
+        'druh_pozemku':  { label: 'Druh pozemku' },
+        'urceni_pozemku':{ label: 'Určení pozemku' },
+        'pristupova_cesta': { label: 'Přístupová cesta' },
+
+        'rok_vystavby':  { label: 'Rok výstavby' },
+        'stav_objektu':  { label: 'Stav objektu' },
+        'parkovani':     { label: 'Parkování' },
+        'garaz':         { label: 'Garáž' },
+        'ostatni':       { label: 'Ostatní' }
+    } %}
+
+        <table class="reality-info-table table-responsive">
+
+            {% for key, config in attributes %}
+                {% if key == 'id' %}
+                    {% if reality.id is defined and reality.id %}
+                        <tr>
+                            <td><span class="text-sm">{{ config.label }}</span></td>
+                            <td><span class="text-sm">{{ reality.id }}</span></td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    {% if reality.columns[key] is defined and reality.columns[key] %}
+                        <tr>
+                            <td><span class="text-sm">{{ config.label }}</span></td>
+                            <td>
+                                <span class="text-sm">
+                                    {{ reality.columns[key] }}
+                                    {% if config.unit is defined %} {{ config.unit }}{% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {#            {% if reality.id is defined and reality.id %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">ID nabídky</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.id }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['cena_poznamka'] is defined and reality.columns['cena_poznamka'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Poznámka k ceně</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['cena_poznamka'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['doprava'] is defined and reality.columns['doprava'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Doprava</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['doprava'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['plocha_pozemek'] is defined and reality.columns['plocha_pozemek'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Plocha</span></td>#}
+{#                    <td><span class="text-sm">Celkem {{ reality.columns['plocha_pozemek'] }} m2</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['konstrukce_budovy'] is defined and reality.columns['konstrukce_budovy'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Stavba</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['konstrukce_budovy'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['site'] is defined and reality.columns['site'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Infrastruktura</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['site'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['plocha_uzitna'] is defined and reality.columns['plocha_uzitna'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Plocha užitná</span></td>#}
+{#                    <td><span class="text-sm">Celkem {{ reality.columns['plocha_uzitna'] }} m2</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['plocha_podlahova'] is defined and reality.columns['plocha_podlahova'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Plocha podlahová</span></td>#}
+{#                    <td><span class="text-sm">Celkem {{ reality.columns['plocha_podlahova'] }} m2</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['plocha_sklep'] is defined and reality.columns['plocha_sklep'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Plocha sklep</span></td>#}
+{#                    <td><span class="text-sm">Celkem {{ reality.columns['plocha_sklep'] }} m2</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['ostatni'] is defined and reality.columns['ostatni'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Ostatní</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['ostatni'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+{#            {% if reality.columns['vlastnictvi'] is defined and reality.columns['vlastnictvi'] %}#}
+{#                <tr>#}
+{#                    <td><span class="text-sm">Vlastnictví</span></td>#}
+{#                    <td><span class="text-sm">{{ reality.columns['vlastnictvi'] }}</span></td>#}
+{#                </tr>#}
+{#            {% endif %}#}
+
+        </table>
 {% endmacro %}

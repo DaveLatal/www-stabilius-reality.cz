@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\CategoryCountingsDTO;
 use App\DTO\PropertyDetailDTO;
 use App\DTO\PropertyListItemDTO;
 use Symfony\Component\HttpClient\HttpClient;
@@ -108,6 +109,85 @@ class PropertyFetcherRepository
         }
 
         return array_values($filtered);
+
+
+    }
+
+    public function getCountingsForCategories(
+        ?string $search = null,
+        ?string $mainCategory = null,
+        ?string $subCategory = null,
+        ?string $sortBy = null,
+        string $sortDirection = 'asc',
+        ?int $limit = null
+    ): CategoryCountingsDTO
+    {
+        $properties = $this->fetchProperties();
+
+        $allCounts = count($this->filterProperties(
+            $properties,
+            $search,
+            null,
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+        $byty = count($this->filterProperties(
+            $properties,
+            $search,
+            'byty',
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+        $domy = count($this->filterProperties(
+            $properties,
+            $search,
+            'domy',
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+        $pozemky = count($this->filterProperties(
+            $properties,
+            $search,
+            'pozemky',
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+        $komercni = count($this->filterProperties(
+            $properties,
+            $search,
+            'komercni',
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+        $ostatni = count($this->filterProperties(
+            $properties,
+            $search,
+            'ostatni',
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+
+
+        return new CategoryCountingsDTO(
+            $allCounts,
+            $byty,
+            $domy,
+            $pozemky,
+            $komercni,
+            $ostatni
+        );
     }
 
 }

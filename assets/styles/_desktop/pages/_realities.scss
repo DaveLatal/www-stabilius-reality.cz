@@ -217,7 +217,7 @@ section#real-filter{
         }
     }
     .tabs-wrapper{
-        width: 287px;
+        //width: 287px;
     }
 
     .real-filter-subfilter{
@@ -366,7 +366,7 @@ section#real-results{
 
         span{
             margin: 0;
-            width: 208px;
+            width:222px;
             height: 24px;
             font-style: normal;
             font-weight: 600;
@@ -374,6 +374,12 @@ section#real-results{
             flex: none;
             order: 0;
             flex-grow: 0;
+            @include mixins.tablet() {
+                width:202px;
+            }
+            @include mixins.mobile() {
+                width:202px;
+            }
         }
 
         .results-upper-controls-wrapper{

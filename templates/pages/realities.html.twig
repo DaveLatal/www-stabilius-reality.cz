@@ -15,59 +15,60 @@
         <div class="container">
             <div class="real-filter-wrapper">
                 <div class="real-filter-categories">
-                    <div class="cat-tab active">
+                    <div class="cat-tab active" data-filter="all">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-smile"></i> <span>Vše</span>
                             </div>
-                            <span>{{ properties|length }}</span>
+                            <span>{{ catCountings.all }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab">
+                    <div class="cat-tab" data-filter="byty">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-building"></i> <span>Byty</span>
                             </div>
-                            <span>1 876</span>
+                            <span>{{ catCountings.byty }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab">
+                    <div class="cat-tab" data-filter="domy">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-03"></i> <span>Domy</span>
                             </div>
-                            <span>198</span>
+                            <span>{{ catCountings.domy }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab">
+                    <div class="cat-tab" data-filter="pozemky">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-01"></i> <span>Pozemky</span>
                             </div>
-                            <span>123</span>
+                            <span>{{ catCountings.pozemky }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab">
+                    <div class="cat-tab" data-filter="komercni">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-building-02"></i> <span>Komerční</span>
                             </div>
-                            <span>456</span>
+                            <span>{{ catCountings.komercni }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab">
+                    <div class="cat-tab" data-filter="ostatni">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-04"></i> <span>Ostatní</span>
                             </div>
-                            <span>876</span>
+                            <span>{{ catCountings.ostatni }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="tabs-wrapper">
-                    <button class="tab-switcher active text-sm btn">Rodinný dům</button>
-                    <button class="tab-switcher text-sm btn">Chata</button>
-                    <button class="tab-switcher text-sm btn">Chalupa</button>
+                    <button class="tab-switcher active text-sm btn" data-filter="vse">Vše</button>
+                    <button class="tab-switcher text-sm btn" data-filter="rodinny_dum">Rodinný dům</button>
+                    <button class="tab-switcher text-sm btn" data-filter="chata">Chata</button>
+                    <button class="tab-switcher text-sm btn" data-filter="chalupa">Chalupa</button>
                 </div>
                 <div class="real-filter-subfilter">
                     <div class="subfilter-item-wrapper">
@@ -114,7 +115,7 @@
                     </div>
 
                 </div>
-                <button class="btn btn-custom-dark">
+                <button class="js-filter-realities btn btn-custom-dark">
                     Vyhledat {{ properties|length }} nemovitostí
                 </button>
             </div>
@@ -124,15 +125,15 @@
         <div class="container">
             <div class="real-results-wrapper">
                 <div class="real-results-upper-controls">
-                    <span class="text-md">Nalezeno: <br class="show-mobile"> 234 nemovitostí</span>
+                    <span class="text-md">Nalezeno: <br class="show-mobile"> {{ catCountings.all }} nemovitostí</span>
                     <div class="results-upper-controls-wrapper">
                         <label id="real-sorting" class="text-md">Řadit podle:</label>
                         <select aria-label="real-sorting">
-                            <option value="0">Neřadit</option>
-                            <option>Cena vzestupně</option>
-                            <option>Cena sestupně</option>
-                            <option>Vzdálenost vzestupně</option>
-                            <option>Vzdálenost sestupně</option>
+                            <option data-sort-by="" data-sort-direction="">Neřadit</option>
+                            <option data-sort-by="price" data-sort-direction="asc">Cena vzestupně</option>
+                            <option data-sort-by="price" data-sort-direction="desc">Cena sestupně</option>
+                            <option data-sort-by="location" data-sort-direction="asc">Vzdálenost vzestupně</option>
+                            <option data-sort-by="location" data-sort-direction="desc">Vzdálenost sestupně</option>
                         </select>
                     </div>
                 </div>

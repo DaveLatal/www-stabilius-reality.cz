@@ -4,17 +4,20 @@ namespace App\Controller;
 
 use App\DTO\MailMessageDTO;
 use App\Entity\Seller;
-use http\Env\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MailController extends AbstractController
 {
+    /**
+     * @throws TransportExceptionInterface
+     */
     #[Route('/send-contact-form-mail', name: 'send_contact_from_mail')]
     public function sendQuestion(MailerInterface $mailer, Request $request, Seller $seller=null): JsonResponse
     {

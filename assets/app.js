@@ -68,12 +68,30 @@ $(document).ready(function() {
     });
 
     $(".offer-tab").click(function (){
-        let slug = $(this).attr("data-slug");
-        window.location.href = "/nemovitost/" + slug;
+        if(!$(this).hasClass("sold")){
+            let slug = $(this).attr("data-slug");
+            window.location.href = "/nemovitost/" + slug;
+        }
     });
     $('.image-link').viewbox();
 
+    $('.search-reality-butt').click(function () {
+        let searchText = $("#search-reality").val();
+        alert(searchText);
+        $.ajax({
+            type: "POST",
+            url: "/nemovitosti/json-filter",
+            data: {
+                search: searchText
+            },
+            success: function (response) {
+                if (response.redirect) {
+                    window.location.href = response.redirect;
+                }
+            }
+        });
 
+    });
 
     $('#send-mail').click(function (){
         let firstname = $("#mail_form_firstname").val();
@@ -82,10 +100,11 @@ $(document).ready(function() {
         let phone = $("#mail_form_phone").val();
         let message = $("#mail_form_message-text").val();
         let agreed = $("#agree-send-mail").is(":checked");
-
+        let spinner = $("#mail-spinner");
         let info = $(".form-send-result");
 
         if(agreed){
+            spinner.addClass("active");
             $.ajax({
                 type: "POST",
                 url: "/send-contact-form-mail",
@@ -102,7 +121,7 @@ $(document).ready(function() {
                         console.log("jedem bomby");
                         info.addClass("active");
                         $("#mail-form").trigger('reset');
-
+                        spinner.removeClass("active");
                     }
                 }
             });

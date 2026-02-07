@@ -8,6 +8,8 @@ use App\DTO\PropertyListItemDTO;
 use App\Repository\PropertyFetcherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RealityRepository;
@@ -59,7 +61,7 @@ class FrontendController extends AbstractController
     {
         $breadcrumbs = $breadcrumbsFactory->create();
         $properties = $this->propertyFetcherRepository->fetchProperties();
-
+        $allCountings = $this->propertyFetcherRepository->getCountingsForCategories();
         $results = $this->propertyFetcherRepository->filterProperties(
             $properties,
             null,
@@ -72,9 +74,72 @@ class FrontendController extends AbstractController
 
         return $this->render('pages/realities.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
+            "catCountings"=>$allCountings,
             "properties"=>$results
         ]);
     }
+
+
+
+    #[Route('/nemovitosti/filter', name: 'front_realities_filtered')]
+    public function realitiesFiltered(Request $request,BreadcrumbsFactory $breadcrumbsFactory): Response
+    {
+        $breadcrumbs = $breadcrumbsFactory->create();
+
+        $properties = $this->propertyFetcherRepository->fetchProperties();
+        $data = $request->request->all();
+        $searchString =  $data["search"] ?? null;
+        $mainCat =  $data["mainCategory"] ?? null;
+        $subCat =  $data["subCategory"] ?? null;
+        $sortBy =  $data["sortBy"] ?? null;
+        $sortDirection =  $data["sortDirection"] ?? "asc";
+        $limit =  $data["limit"] ?? 10;
+
+        $allCountings = $this->propertyFetcherRepository->getCountingsForCategories(
+            $searchString,
+            $mainCat,
+            $subCat,
+            $sortBy,
+            $sortDirection,
+            $limit
+        );
+
+        $results = $this->propertyFetcherRepository->filterProperties(
+            $properties,
+            $searchString,
+            $mainCat,
+            $subCat,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        );
+        dump($results);
+
+        return $this->render('pages/realities.html.twig',[
+            "breadcrumbs"=>$breadcrumbs,
+            "catCountings"=>$allCountings,
+            "properties"=>$results
+        ]);
+    }
+
+
+    #[Route('/nemovitosti/json-filter', name: 'front_realities_filtered_json')]
+    public function realitiesFilteredJson(Request $request): JsonResponse
+    {
+        $data = $request->request->all();
+        return $this->json([
+            'redirect' => $this->generateUrl('front_realities_filtered', [
+                'search' => $data['search'] ?? null,
+                'mainCategory' => $data['mainCategory'] ?? null,
+                'subCategory' => $data['subCategory'] ?? null,
+                'sortBy' => $data['sortBy'] ?? null,
+                'sortDirection' => $data['sortDirection'] ?? "asc",
+                'limit' => $data['limit'] ?? 10,
+            ])
+        ]);
+    }
+
+
     #[Route('/nemovitost/{id}', name: 'front_realitiy_detail')]
     public function reality_detail($id, BreadcrumbsFactory $breadcrumbsFactory): Response
     {
@@ -144,36 +209,6 @@ class FrontendController extends AbstractController
     }
 
 
-
-
-//    private function fetchDetail(string $id): ?\SimpleXMLElement
-//    {
-//        try {
-//            $response = $this->client->request('GET', 'https://eurobydleni.cz/download/full_list_xml.php', [
-//                'query' => [
-//                    'username' => '6918',
-//                    'password' => '152219',
-//                    'property_id' => $id,
-//                ],
-//            ]);
-//        } catch (TransportExceptionInterface $e) {
-//            return null;
-//        }
-//
-//        dump($response);
-//
-//        $content = trim($response->getContent(false));
-//        if (str_starts_with($content, '<!DOCTYPE')) {
-//            dump('HTML RESPONSE instead of XML for ID: '.$id);
-//            return null;
-//        }
-//
-//        libxml_use_internal_errors(true);
-//        $xml = simplexml_load_string($content);
-//        libxml_clear_errors();
-//
-//        return $xml ?: null;
-//    }
 
 
 }

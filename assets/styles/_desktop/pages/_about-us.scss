@@ -1,33 +1,91 @@
+@use "../commons/mixins";
+
 #about-us{
     padding: 144px 0;
     margin: 0 auto;
     width: 100%;
-}
 
+    @include mixins.tablet() {
+        padding: 64px 16px;
+    }
+    @include mixins.mobile() {
+        padding: 64px 16px;
+    }
+}
 .about-us-wrapper{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 64px;
 
-    .about-us-image{
-        width: 500px;
-        height: auto;
-        overflow: hidden;
-        border-radius: 25px;
-        img{
-            width: 100%;
-            height: 100%;
+    .about-us-wrapper-row{
+        display: flex;
+        flex-direction: row;
+        gap: 64px;
+
+        &:nth-child(2){
+            flex-direction: row-reverse;
+            @include mixins.tablet() {
+                gap: 16px;
+                flex-direction: column;
+            }
+            @include mixins.mobile() {
+                gap: 16px;
+                flex-direction: column;
+            }
         }
-    }
 
-    .about-us-description{
-        width: 724px;
-        .about-us-description-frame{
-            width: 100%;
+        @include mixins.tablet() {
+            gap: 16px;
+            flex-direction: column;
+        }
+        @include mixins.mobile() {
+            gap: 16px;
+            flex-direction: column;
+        }
 
-            h2{
-                font-weight: 600;
+        .about-us-image{
+            width: 500px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            .image-wrapper{
+                width: 100%;
+                overflow: hidden;
+                border-radius: 25px;
+
+                img{
+                    object-fit: fill;
+                }
+            }
+
+            @include mixins.tablet() {
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .about-us-description{
+            width: 724px;
+            @include mixins.tablet() {
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
+            .about-us-description-frame{
+                width: 100%;
+
+                h2{
+                    font-weight: 600;
+                }
             }
         }
     }
+
 }

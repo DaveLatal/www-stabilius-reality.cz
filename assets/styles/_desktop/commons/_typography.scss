@@ -1,3 +1,5 @@
+@use "../commons/mixins";
+
 .text-xs{
     font-size: $text-xs;
     line-height: 18px;
@@ -6,51 +8,139 @@
 .text-sm{
     font-size: $text-sm;
     line-height: 20px;
+
+    @include mixins.tablet() {
+        font-size: $text-xs;
+        line-height: 18px;
+    }
+    @include mixins.mobile() {
+        font-size: $text-xs;
+        line-height: 18px;
+    }
 }
 
 .text-md{
     font-size: $text-md;
     line-height: 24px;
+
+    @include mixins.tablet() {
+        font-size: $text-sm;
+        line-height: 20px;
+    }
+    @include mixins.mobile() {
+        font-size: $text-sm;
+        line-height: 20px;
+    }
 }
 
 .text-lg{
     font-size: $text-lg;
     line-height: 28px;
+
+    @include mixins.tablet() {
+        font-size: $text-md;
+        line-height: 24px;
+    }
+    @include mixins.mobile() {
+        font-size: $text-md;
+        line-height: 24px;
+    }
 }
 
 .text-xl{
     font-size: $text-xl;
     line-height: 28px;
+
+    @include mixins.tablet() {
+        font-size: $text-lg;
+        line-height: 28px;
+    }
+    @include mixins.mobile() {
+        font-size: $text-lg;
+        line-height: 28px;
+    }
 }
 
 .display-xs{
     font-size: $display-xs;
     line-height: 32px;
+
+    @include mixins.tablet() {
+        font-size: $text-xl;
+        line-height: 28px;
+    }
+    @include mixins.mobile() {
+        font-size: $text-xl;
+        line-height: 28px;
+    }
 }
 
 .display-sm{
     font-size: $display-sm;
     line-height: 36px;
+
+    @include mixins.tablet() {
+        font-size: $display-xs;
+        line-height: 32px;
+    }
+    @include mixins.mobile() {
+        font-size: $display-xs;
+        line-height: 32px;
+    }
 }
 
 .display-md{
     font-size: $display-md;
     line-height: 44px;
+
+    @include mixins.tablet() {
+        font-size: $display-sm;
+        line-height: 36px;
+    }
+    @include mixins.mobile() {
+        font-size: $display-sm;
+        line-height: 36px;
+    }
 }
 
 .display-lg{
     font-size: $display-lg;
     line-height: 60px;
+
+    @include mixins.tablet() {
+        font-size: $display-md;
+        line-height: 44px;
+    }
+    @include mixins.mobile() {
+        font-size: $display-md;
+        line-height: 44px;
+    }
 }
 
 .display-xl{
     font-size: $display-xl;
     line-height: 72px;
+    @include mixins.tablet() {
+        font-size: $display-lg;
+        line-height: 60px;
+    }
+    @include mixins.mobile() {
+        font-size: $display-lg;
+        line-height: 60px;
+    }
 }
 
 .display-2xl{
     font-size: $display-2xl;
     line-height: 80px;
+    @include mixins.tablet() {
+        font-size: $display-xl;
+        line-height: 72px;
+    }
+    @include mixins.mobile() {
+        font-size: $display-xl;
+        line-height: 72px;
+    }
 }
 
 .text-weight-[--weight]{

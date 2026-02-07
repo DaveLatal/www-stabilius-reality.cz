@@ -1,7 +1,15 @@
+@use "../commons/mixins";
+
 #contacts{
     padding: 144px 0;
     margin: 0 auto;
     width: 100%;
+    @include mixins.tablet() {
+        padding: 32px 0 0 0;
+    }
+    @include mixins.mobile() {
+        padding: 32px 0 0 0;
+    }
 }
 
 .contacts-wrapper{
@@ -10,7 +18,17 @@
     display: flex;
     flex-direction: row;
     gap: 32px;
+    @include mixins.tablet() {
+        padding: 32px 16px;
+        width: 100%;
+        flex-direction: column;
 
+    }
+    @include mixins.mobile() {
+        padding: 32px 16px;
+        width: 100%;
+        flex-direction: column;
+    }
 
 
     .contacts-list-wrapper{
@@ -25,25 +43,34 @@
             flex-direction: column;
             align-items: start;
             gap: 4px;
-            padding: 75px 0;
+            padding: 54px 16px;
+            width: 313px;
+            background: $primary-500;
+            box-shadow: 0 1px 3px rgba(10, 13, 18, 0.3), 0 1px 2px -1px rgba(10, 13, 18, 0.3);
+            border-radius: 4px;
 
-            //background: $primary-500;
+            @include mixins.tablet() {
+                width: 100%;
+            }
+            @include mixins.mobile() {
+                width: 100%;
+            }
 
             p{
                 margin: 0;
-                color: $primary-900;
+                color: #fff;
             }
 
             a{
                 text-decoration: none;
-                color: $primary-900;
+                color: #fff;;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 gap: 4px;
                 i{
                     --size: 16px;
-                    color: $primary-500;
+                    color: $primary-50;
                 }
             }
         }
@@ -88,6 +115,14 @@
 
 .map-wrapper{
     width: 100%;
+
+    @include mixins.tablet() {
+        //padding: 0 16px;
+    }
+    @include mixins.mobile() {
+        //padding: 0 16px;
+    }
+
     .adress-wrapper{
         padding: 16px 0;
         display: flex;
@@ -100,5 +135,12 @@
         width: 100%;
         height: 349px;
         border-radius: 20px;
+
+        @include mixins.tablet() {
+            border-radius: 0;
+        }
+        @include mixins.mobile() {
+            border-radius: 0;
+        }
     }
 }
