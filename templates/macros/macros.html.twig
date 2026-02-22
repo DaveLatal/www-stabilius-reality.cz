@@ -33,9 +33,15 @@
     <div class="offer-list">
         <div class="offer-tabs-row">
             {% if offers is not null %}
-                {% for offer in offers %}
-                    {{ _self.renderOfferItem(offer) }}
-                {% endfor %}
+                {% if offers|length > 0 %}
+                    {% for offer in offers %}
+                        {{ _self.renderOfferItem(offer) }}
+                    {% endfor %}
+                {% else %}
+                    <div class="no-items">
+                        <p class="text-md text-center">Podle zvolených kritérií jsme bohužel nic nenašli :(</p>
+                    </div>
+                {% endif %}
             {% else %}
                 {% if count != 0 %}
                     {% for i in 1..count %}
@@ -58,7 +64,7 @@
                 <div class="sold"></div>
             {% endif %}
             <div class="offer-tab-image">
-                <img src="{{ offer.columns['photo'] }}" alt="Barak brno" />
+                <img src="{% if offer.columns['photo'] is defined %}{{ offer.columns['photo'] }}{% elseif reality.images[0] is defined %}{{ offer.images[0] }}{% endif %}" alt="" />
                 {% if offer.columns['cena_poznamka'] == "Prodáno" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
                 {% if offer.columns['cena_poznamka'] == "Pronajato" %}<div class="tag sold text-sm">Pronajato</div>{% endif %}
             </div>
@@ -105,7 +111,7 @@
             <a class="nav-link nav-search-butt" href="#"><i class="icon icon-search"></i></a>
         </li>
         <li class="nav-item">
-            <a class="btn btn-custom-dark text-sm text-weight-600" href="#">Chci prodat</a>
+            <button id="want-sell" class="btn btn-custom-dark text-sm text-weight-600" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Chci prodat</button>
         </li>
     </ul>
 {% endmacro %}
@@ -114,7 +120,7 @@
     <div class="container">
         <div class="header-contact">
             <div class="contacts">
-                <a href="tel:+420 777 123 456" class="text-sm"><i class="icon icon-phone"></i> +420 777 123 456</a>
+                <a href="tel:+420777233862" class="text-sm"><i class="icon icon-phone"></i> +420 777 233 862</a>
                 <a href="mailto:info@stabilius-real.cz" class="text-sm"><i class="icon icon-mail"></i> info@stabilius-real.cz</a>
             </div>
         </div>
@@ -179,51 +185,52 @@
     <div class="blog-items-list-wrapper">
         <div class="blog-items-list">
             {% if blogs==null %}
-                <div class="blog-item">
-                    <img src="{{ asset("build/images/blog-01.png") }}" alt="Blog image 01"/>
+                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3013-neplatici-na-odchodu-novy-rozkaz-k-vyklizeni-zrychli-cestu-pronajimatele-k-bytu">
+                    <img src="https://www.realitycechy.cz/_data/1771580823.jpg" alt="1771580823"/>
                     <div class="blog-item-description">
                         <div class="blog-item-heading">
-                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <p class="blog-item-heading-subhead text-sm">20. 2. 2026</p>
                             <div class="blog-item-heading-texts">
                                 <div class="blog-item-heading-texts-title-wrapper">
-                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Neplatiči na odchodu. Nový rozkaz k vyklizení zrychlí cestu pronajímatele k bytu'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
                                     <i class="icon icon-arrow"></i>
                                 </div>
-                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                                <p class="blog-item-heading-texts-description">{{ '„Nový právní institut, nazvaný rozkaz k vyklizení, vstoupil v účinnost 1. ledna letošního roku na základě novely občanského soudního řádu. Tento nástroj má zjednodušit a zrychlit situace, kdy nájemce po skončení nájmu odmítá byt či dům dobrovolně opustit. Dosud musel pronajímatel podávat klasickou žalobu. Nyní je možné, aby soud rozhodl rychleji, pokud budou všechny podklady jasné a dostatečné.'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="blog-item">
-                    <img src="{{ asset("build/images/blog-02.png") }}" alt="Blog image 02"/>
+                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3012-zajem-o-hypoteky-neklesa-ani-na-zacatku-roku">
+                    <img src="https://www.realitycechy.cz/_data/1771401993_th.jpg" alt="1771401993_th"/>
                     <div class="blog-item-description">
                         <div class="blog-item-heading">
-                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <p class="blog-item-heading-subhead text-sm">18. 2. 2026</p>
                             <div class="blog-item-heading-texts">
                                 <div class="blog-item-heading-texts-title-wrapper">
-                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Zájem o hypotéky neklesá ani na začátku roku'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
                                     <i class="icon icon-arrow"></i>
                                 </div>
-                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                                <p class="blog-item-heading-texts-description">{{ 'Po rekordním roce 2021 šlo o druhý nejvyšší objem nově poskytnutých hypoték v historii. Pokud započítáme i refinancované hypotéky, dosáhl loňský objem dokonce 406 miliard korun. Počet nově…'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="blog-item">
-                    <img src="{{ asset("build/images/blog-03.png") }}" alt="Blog image 03"/>
+                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3011-platby-za-zmenu-druhu-pozemku-se-zrejme-behem-letosniho-roku-zvysi-o-dalsi-poplatek">
+                    <img src="https://www.realitycechy.cz/_data/1771266986_th.jpg" alt="1771266986_th"/>
                     <div class="blog-item-description">
                         <div class="blog-item-heading">
-                            <p class="blog-item-heading-subhead text-sm">20. 5. 2025</p>
+                            <p class="blog-item-heading-subhead text-sm">16. 2. 2026</p>
                             <div class="blog-item-heading-texts">
                                 <div class="blog-item-heading-texts-title-wrapper">
-                                    <p class="blog-item-heading-texts-title display-xs">Lorem ipsum dolor</p>
+                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Platby za změnu druhu pozemku se zřejmě během letošního roku zvýší o další poplatek'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
                                     <i class="icon icon-arrow"></i>
                                 </div>
-                                <p class="blog-item-heading-texts-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
+                                <p class="blog-item-heading-texts-description">{{ 'Územní plán je „svatým grálem“ obce. A podle něj stoupá nebo klesá hodnota jednotlivých pozemků. Ty mohou být situované v zastavěném území obce, v zastavitelném území obce nebo v nezastavitelném…'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
             {% else %}
                 {% for blog in blogs %}
                     <div class="blog-item">
@@ -233,10 +240,10 @@
                                 <p class="blog-item-heading-subhead text-sm">{{ blog.publishedAt }}</p>
                                 <div class="blog-item-heading-texts">
                                     <div class="blog-item-heading-texts-title-wrapper">
-                                        <p class="blog-item-heading-texts-title display-xs">{{ blog.title }}</p>
+                                        <p class="blog-item-heading-texts-title display-xs">{{ blog.title|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
                                         <i class="icon icon-arrow"></i>
                                     </div>
-                                    <p class="blog-item-heading-texts-description">{{ blog.subtitle }}</p>
+                                    <p class="blog-item-heading-texts-description">{{ blog.subtitle|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +252,7 @@
             {% endif %}
         </div>
         <div class="blog-actions">
-            <a class="show-more btn btn-custom-dark">Všechny aktuality</a>
+            <a class="show-more btn btn-custom-dark" href="https://www.realitycechy.cz/clanky" target="_blank">Všechny aktuality</a>
         </div>
     </div>
 {% endmacro %}

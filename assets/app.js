@@ -6,19 +6,102 @@
  * which should already be in your base.html.twig.
  */
 //import './styles/app.css';
-
-
-const $ = require('jquery');
+import Swiper from 'swiper';
+import $ from "jquery";
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
-require('bootstrap');
-const {waitFor} = require("@babel/core/lib/gensync-utils/async");
+import bootstrap from "bootstrap";
+
+import {waitFor} from "@babel/core/lib/gensync-utils/async";
+
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
 
 $(document).ready(function() {
+    // alert("sada");
+    let actualCategoryChoosed = null;
+    let actualSubCategoryChoosed = null;
+    let actualSortByChoosed = null;
+    let actualSortDirectionChoosed = "asc";
+    let actualOfferTypeChoosed = null;
+    let actualKrajChoosed = null;
+    let actualOkresChoosed = null;
+    let actualLokalitaChoosed = "all";
+    let actualPriceRangeChoosed = "all";
+
+
+    function checkForButtonCOunting(){
+        if($("#properties-selected-length")!=null){
+            let propertiesSelectedLength = $("#properties-selected-length");
+            let propertiesSelectedSuffix = $("#properties-selected-suffix");
+            $.ajax({
+                type: "POST",
+                url: "/get-countings-for-button",
+                data: {
+                    search: null,
+                    mainCategory: actualCategoryChoosed,
+                    subCategory: actualSubCategoryChoosed,
+                    sortBy: actualSortByChoosed,
+                    sortDirection: actualSortDirectionChoosed
+                },
+                success: function (response) {
+                    switch(response){
+                        case 0:
+                            propertiesSelectedSuffix.text("nemovitost");
+                            break;
+                        case 1:
+                            propertiesSelectedSuffix.text("nemovitost");
+                            break;
+                        case 2:
+                            propertiesSelectedSuffix.text("nemovitosti");
+                            break;
+                        case 3:
+                            propertiesSelectedSuffix.text("nemovitosti");
+                            break;
+                        case 4:
+                            propertiesSelectedSuffix.text("nemovitosti");
+                            break;
+                        case response>5:
+                            propertiesSelectedSuffix.text("nemovitostí");
+                            break;
+                        default:
+                            propertiesSelectedSuffix.text("nemovitostí");
+                            break;
+                    }
+                    propertiesSelectedLength.text(response);
+                    console.log(response);
+                }
+            });
+
+
+        }
+    }
+
+    checkForButtonCOunting();
+
+    function openMenu(_thisIcon){
+        _thisIcon.removeClass("icon-menu-mobile");
+        _thisIcon.addClass("icon-cross");
+    }
+    function closeMenu(_thisIcon){
+        _thisIcon.removeClass("icon-cross");
+        _thisIcon.addClass("icon-menu-mobile");
+    }
+    function openSearch(_searchBar,_searchWrapper,_thisIcon){
+        _searchBar.slideDown("slow");
+        _searchBar.css("display","flex");
+        _searchWrapper.delay(200).fadeIn("slow");
+        _thisIcon.removeClass("icon-search");
+        _thisIcon.addClass("icon-cross");
+    }
+    function closeSearch(_searchBar,_searchWrapper,_thisIcon){
+        _searchWrapper.fadeOut("slow");
+        _searchBar.delay(200).slideUp("slow");
+        _thisIcon.removeClass("icon-cross");
+        _thisIcon.addClass("icon-search");
+    }
     $('[data-toggle="popover"]').popover();
 
     /* NAV SEARCHBAR TOGGLE */
@@ -28,29 +111,15 @@ $(document).ready(function() {
         let thisIcon = $("#nav-search-butt-icon");
         searchBar.toggleClass("active");
         if(searchBar.hasClass("active")){
-            searchBar.slideDown("slow");
-            searchBar.css("display","flex");
-            searchWrapper.delay(200).fadeIn("slow");
-            thisIcon.removeClass("icon-search");
-            thisIcon.addClass("icon-cross");
+            openSearch(searchBar,searchWrapper,thisIcon);
+
+            if($(".navigation-toggler").hasClass("active")){
+                closeMenu($("#navbar-toggler-icon"));
+            }
+
         }else {
-            searchWrapper.fadeOut("slow");
-            searchBar.delay(200).slideUp("slow");
-            thisIcon.removeClass("icon-cross");
-            thisIcon.addClass("icon-search");
+            closeSearch(searchBar,searchWrapper,thisIcon);
         }
-    });
-
-    /* SWITCHER TOGGLE */
-    $(".tab-switcher").click(function (){
-        $(".tab-switcher").removeClass("active");
-        $(this).toggleClass("active");
-    });
-
-    /* SWITCHER TOGGLE */
-    $(".cat-tab").click(function (){
-        $(".cat-tab").removeClass("active");
-        $(this).toggleClass("active");
     });
 
     $(".navigation-toggler").click(function (){
@@ -59,11 +128,85 @@ $(document).ready(function() {
         let thisIcon = $("#navbar-toggler-icon");
         mobNavbar.toggleClass("active");
         if(mobNavbar.hasClass("active")){
-            thisIcon.removeClass("icon-menu-mobile");
-            thisIcon.addClass("icon-cross");
+            openMenu(thisIcon);
+
+            if($(".nav").hasClass("active")){
+                closeMenu($("#nav-search-butt-icon"));
+            }
+
         }else{
-            thisIcon.removeClass("icon-cross");
-            thisIcon.addClass("icon-menu-mobile");
+            closeMenu(thisIcon);
+        }
+    });
+    /* SWITCHER TOGGLE */
+    $(".tab-switcher").click(function (){
+        $(".tab-switcher").removeClass("active");
+        $(this).toggleClass("active");
+
+        if($(this).hasAttribute("data-filter")){
+            actualSubCategoryChoosed = $(this).attr("data-filter");
+        }
+    });
+
+    /* CATEGORY TAB TOGGLE */
+    $(".cat-tab").click(function (){
+        $(".cat-tab").removeClass("active");
+        $(this).toggleClass("active");
+
+        let tabSubfilters = $(".tab-subfilter");
+        actualCategoryChoosed = $(this).attr("data-filter");
+
+        tabSubfilters.removeClass("d-none");
+        tabSubfilters.addClass("d-none");
+
+
+        switch ($(this).attr("data-filter")){
+            case "domy":
+                $("#dum_subfilter").removeClass("d-none");
+                break;
+            case "byty":
+                $("#byt_subfilter").removeClass("d-none");
+                break;
+            case "pozemky":
+                $("#pozemky_subfilter").removeClass("d-none");
+                break;
+            case "komercni":
+                $("#komercni_subfilter").removeClass("d-none");
+                break;
+            case "ostatni":
+                $("#ostatni_subfilter").removeClass("d-none");
+                break;
+            default:
+                $("#dum_subfilter").removeClass("d-none");
+                break;
+        }
+
+
+    });
+
+    $(".subfilter-item-select").on('change',function (){
+
+
+        switch ($(this).attr("id")){
+            case "offer_type_select":
+                actualOfferTypeChoosed = $(this).val();
+                break;
+            case "kraj_select":
+                actualKrajChoosed = $(this).val();
+                break;
+            case "okres_select":
+                actualOkresChoosed = $(this).val();
+                break;
+            case "lokalita_select":
+                actualLokalitaChoosed = $(this).val();
+                break;
+            case "price_select":
+                actualPriceRangeChoosed = $(this).val();
+                break;
+            case "sorting_selects":
+                actualSortByChoosed = $(this).attr("data-sort-by");
+                actualSortDirectionChoosed = $(this).attr("data-sort-directions");
+                break;
         }
     });
 
@@ -73,16 +216,41 @@ $(document).ready(function() {
             window.location.href = "/nemovitost/" + slug;
         }
     });
+
+    $(".blog-item").click(function (){
+        let url= $(this).attr("data-url");
+        window.open(url, "_blank")
+    });
+
     $('.image-link').viewbox();
 
     $('.search-reality-butt').click(function () {
         let searchText = $("#search-reality").val();
-        alert(searchText);
         $.ajax({
             type: "POST",
             url: "/nemovitosti/json-filter",
             data: {
                 search: searchText
+            },
+            success: function (response) {
+                if (response.redirect) {
+                    window.location.href = response.redirect;
+                }
+            }
+        });
+
+    });
+    $('.js-filter-realities').click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/nemovitosti/json-filter",
+            data: {
+                search: null,
+                mainCategory: actualCategoryChoosed,
+                subCategory: actualSubCategoryChoosed,
+                sortBy: actualSortByChoosed,
+                sortDirection: actualSortDirectionChoosed
             },
             success: function (response) {
                 if (response.redirect) {
@@ -135,7 +303,28 @@ $(document).ready(function() {
     //     initMap();
     // }
 
+    $('.swiper-button-next').click(function (){
+        swiper.slideNext();
+    });
+    $('.swiper-button-prev').click(function (){
+        swiper.slidePrev();
+    });
+
+    $('.hero-category-item').click(function (){
+        let _url = $(this).attr("data-url");
+        window.location.href = _url;
+    });
 });
+
+const swiper = new Swiper('.swiper', {
+    loop: true,
+    navigation: {
+        nextEl:'.swiper-button-next',
+        prevEl:'.swiper-button-prev',
+
+    }
+});
+
 
 let apiKey = "";
 if(document.querySelector('#reality-map-render') !==null){
@@ -176,3 +365,13 @@ loadGoogleMaps(apiKey)
     })
     .catch((err) => console.error('Google Maps failed to load', err));
 }
+
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('want-sell')
+
+if(myModal){
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    });
+}
+

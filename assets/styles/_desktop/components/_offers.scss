@@ -24,6 +24,12 @@
         flex-grow: 0;
         flex-wrap: wrap;
 
+        .no-items{
+            padding: 64px 0;
+            background: $primary-50;
+            width: 100%;
+        }
+
         .offer-tab{
             display: flex;
             flex-direction: column;

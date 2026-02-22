@@ -69,7 +69,7 @@ class FrontendController extends AbstractController
             null,
             sortBy: 'city',
             sortDirection: 'asc',
-            limit: 10
+            limit: 50
         );
 
         return $this->render('pages/realities.html.twig',[
@@ -82,19 +82,24 @@ class FrontendController extends AbstractController
 
 
     #[Route('/nemovitosti/filter', name: 'front_realities_filtered')]
-    public function realitiesFiltered(Request $request,BreadcrumbsFactory $breadcrumbsFactory): Response
-    {
+    public function realitiesFiltered(
+        Request $request,
+        BreadcrumbsFactory $breadcrumbsFactory
+    ): Response {
         $breadcrumbs = $breadcrumbsFactory->create();
 
-        $properties = $this->propertyFetcherRepository->fetchProperties();
-        $data = $request->request->all();
-        $searchString =  $data["search"] ?? null;
-        $mainCat =  $data["mainCategory"] ?? null;
-        $subCat =  $data["subCategory"] ?? null;
-        $sortBy =  $data["sortBy"] ?? null;
-        $sortDirection =  $data["sortDirection"] ?? "asc";
-        $limit =  $data["limit"] ?? 10;
+        // ✅ READ FROM QUERY (GET), NOT POST
+        $searchString  = $request->query->get('search');
+        $mainCat       = $request->query->get('mainCategory');
+        $subCat        = $request->query->get('subCategory');
+        $sortBy        = $request->query->get('sortBy');
+        $sortDirection = $request->query->get('sortDirection', 'asc');
+        $limit         = $request->query->getInt('limit', 500);
 
+        // Fetch properties ONCE
+        $properties = $this->propertyFetcherRepository->fetchProperties();
+
+        // Category counters
         $allCountings = $this->propertyFetcherRepository->getCountingsForCategories(
             $searchString,
             $mainCat,
@@ -104,6 +109,7 @@ class FrontendController extends AbstractController
             $limit
         );
 
+        // Actual filtered results
         $results = $this->propertyFetcherRepository->filterProperties(
             $properties,
             $searchString,
@@ -113,29 +119,28 @@ class FrontendController extends AbstractController
             sortDirection: $sortDirection,
             limit: $limit
         );
-        dump($results);
 
-        return $this->render('pages/realities.html.twig',[
-            "breadcrumbs"=>$breadcrumbs,
-            "catCountings"=>$allCountings,
-            "properties"=>$results
+        return $this->render('pages/realities.html.twig', [
+            'breadcrumbs'  => $breadcrumbs,
+            'catCountings' => $allCountings,
+            'properties'   => $results,
         ]);
     }
-
 
     #[Route('/nemovitosti/json-filter', name: 'front_realities_filtered_json')]
     public function realitiesFilteredJson(Request $request): JsonResponse
     {
-        $data = $request->request->all();
+        $data = $request->request->all(); // JSON / POST is correct here
+
         return $this->json([
             'redirect' => $this->generateUrl('front_realities_filtered', [
-                'search' => $data['search'] ?? null,
-                'mainCategory' => $data['mainCategory'] ?? null,
-                'subCategory' => $data['subCategory'] ?? null,
-                'sortBy' => $data['sortBy'] ?? null,
-                'sortDirection' => $data['sortDirection'] ?? "asc",
-                'limit' => $data['limit'] ?? 10,
-            ])
+                'search'        => $data['search'] ?? null,
+                'mainCategory'  => $data['mainCategory'] ?? null,
+                'subCategory'   => $data['subCategory'] ?? null,
+                'sortBy'        => $data['sortBy'] ?? null,
+                'sortDirection' => $data['sortDirection'] ?? 'asc',
+                'limit'         => $data['limit'] ?? 500,
+            ]),
         ]);
     }
 
@@ -146,7 +151,7 @@ class FrontendController extends AbstractController
         $breadcrumbs = $breadcrumbsFactory->create();
         $property=$this->propertyFetcherRepository->fetchPropertyDetail($id);
         $googleMapsApiKey = $_ENV['GOOGLE_MAPS_API_KEY'];
-        dump($property);
+
 //        $reality = $this->realityRepository->findOneBy(['slug' => $slug]);
 
         $map = (new Map())

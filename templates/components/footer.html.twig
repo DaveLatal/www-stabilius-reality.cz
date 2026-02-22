@@ -5,13 +5,13 @@
                 <div class="footer-logo-adress">
                     <img src="{{ asset("build/images/logo-white.png") }}" alt="Logo white" />
                     <div class="footer-adress">
-                        <p>Přerovská 12<br/>
-                            Olomouc</p>
-                        <p>IČ: 12345678</p>
+                        <p>tř. Svornosti 136/7<br/>
+                            779 00 Olomouc</p>
+                        <p>IČ: 23943084</p>
                     </div>
                     <div class="footer-contacts">
-                        <a href="tel:+420777929980" class="footer-contact-item text-md"><i class="icon icon-phone"></i> +420 777 929 980</a>
-                        <a href="mailto:info@stabilius.cz" class="footer-contact-item text-md"><i class="icon icon-mail"></i> info@stabilius.cz</a>
+                        <a href="tel:+420777233862" class="footer-contact-item text-md"><i class="icon icon-phone"></i> +420 777 233 862</a>
+                        <a href="mailto:info@stabilius-real.cz" class="footer-contact-item text-md"><i class="icon icon-mail"></i> info@stabilius-real.cz</a>
                     </div>
                 </div>
                 <div class="footer-menu-links">
@@ -26,11 +26,46 @@
                 <div class="footer-categories">
                     <p class="footer-main-heading text-sm">Nemovitosti</p>
                     <div class="footer-links-list">
-                        <a href="#" >Byty</a>
-                        <a href="#" >Domy</a>
-                        <a href="#" >Pozemky</a>
-                        <a href="#" >Kanceláře</a>
-                        <a href="#" >Novostavby</a>
+                        <a href="{{ path('front_realities_filtered', {
+                            search: null,
+                            mainCategory: 'byty',
+                            subCategory: null,
+                            sortBy: null,
+                            sortDirection: null,
+                            limit: null
+                        }) }}" >Byty</a>
+                        <a href="{{ path('front_realities_filtered', {
+                            search: null,
+                            mainCategory: 'domy',
+                            subCategory: null,
+                            sortBy: null,
+                            sortDirection: null,
+                            limit: null
+                        }) }}" >Domy</a>
+                        <a href="{{ path('front_realities_filtered', {
+                            search: null,
+                            mainCategory: 'pozemky',
+                            subCategory: null,
+                            sortBy: null,
+                            sortDirection: null,
+                            limit: null
+                        }) }}" >Pozemky</a>
+                        <a href="{{ path('front_realities_filtered', {
+                            search: null,
+                            mainCategory: 'komercni',
+                            subCategory: null,
+                            sortBy: null,
+                            sortDirection: null,
+                            limit: null
+                        }) }}" >Komerční</a>
+                        <a href="{{ path('front_realities_filtered', {
+                            search: null,
+                            mainCategory: 'ostatni',
+                            subCategory: null,
+                            sortBy: null,
+                            sortDirection: null,
+                            limit: null
+                        }) }}" >Ostatní</a>
                     </div>
                 </div>
                 <div class="footer-socials">

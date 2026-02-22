@@ -32,4 +32,34 @@ return [
     '@symfony/ux-leaflet-map' => [
         'path' => './vendor/symfony/ux-leaflet-map/assets/dist/map_controller.js',
     ],
+    'swiper' => [
+        'version' => '12.1.1',
+    ],
+    'jquery' => [
+        'version' => '4.0.0',
+    ],
+    'bootstrap' => [
+        'version' => '5.3.8',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.8',
+        'type' => 'css',
+    ],
+    '@babel/core/lib/gensync-utils/async' => [
+        'version' => '7.29.0',
+    ],
+    'gensync' => [
+        'version' => '1.0.0-beta.2',
+    ],
+    'bootstrap-icons/font/bootstrap-icons.min.css' => [
+        'version' => '1.13.1',
+        'type' => 'css',
+    ],
+    '@fortawesome/fontawesome-free/css/all.css' => [
+        'version' => '7.2.0',
+        'type' => 'css',
+    ],
 ];

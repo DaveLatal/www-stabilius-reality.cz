@@ -7,41 +7,100 @@
     {# Hero section #}
     <section id="hero">
         <div class="hero-texts-wrapper">
-             <div class="hero-texts">
-                 <a class="chevron chevron-l btn" href="#"><i class="icon icon-chevron-l"></i></a>
-                 <a class="chevron chevron-r btn" href="#"><i class="icon icon-chevron-r"></i></a>
-                 <div class="hero-texts-header">
-                     <h1 class="display-xl text-white text-weight-600">Pomůžeme vám <br/>s nemovitostmi</h1>
-                     <p class="text-xl text-white text-weight-400">Pomáháme lidem bezpečně prodat i najít bydlení.</p>
-                 </div>
-                 <div class="hero-texts-links">
-                    <a class="show-offer text-md btn" href="{{ path('front_realities') }}">Prohlédnout nabídku</a>
-                    <a class="sell-reality btn">Chci prodat nemovitost</a>
+             <div class="hero-texts swiper">
+                 <button class="chevron chevron-l btn swiper-button-prev"><i class="icon icon-chevron-l"></i></button>
+                 <button class="chevron chevron-r btn swiper-button-next"><i class="icon icon-chevron-r"></i></button>
+{#                 <div class="hero-slide-item">#}
+{#                     <div class="hero-texts-header">#}
+{#                         <h1 class="display-xl text-white text-weight-600">Pomůžeme vám <br/>s nemovitostmi</h1>#}
+{#                         <p class="text-xl text-white text-weight-400">Pomáháme lidem bezpečně prodat i najít bydlení.</p>#}
+{#                     </div>#}
+{#                     <div class="hero-texts-links">#}
+{#                         <a class="show-offer text-md btn" href="{{ path('front_realities') }}">Prohlédnout nabídku</a>#}
+{#                         <a class="sell-reality btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Chci prodat nemovitost</a>#}
+{#                     </div>#}
+{#                  </div>#}
+                 <div class="hero-slide-wrapper swiper-wrapper">
+                     <div class="hero-slide-item swiper-slide">
+                         <div class="hero-texts-header">
+                             <h1 class="display-xl text-white text-weight-600">Pomůžeme vám <br/>s nemovitostmi</h1>
+                             <p class="text-xl text-white text-weight-400"  style="max-width: 600px;">Pomáháme vám najít místo, které odpovídá vašim potřebám, plánům i životnímu stylu.
+                             </p>
+                         </div>
+                         <div class="hero-texts-links">
+                             <a class="show-offer text-md btn" href="{{ path('front_realities') }}">Prohlédnout nabídku</a>
+                             <a class="sell-reality btn">Chci prodat nemovitost</a>
+                         </div>
+                     </div>
+                     <div class="hero-slide-item swiper-slide">
+                         <div class="hero-texts-header">
+                             <h1 class="display-xl text-white text-weight-600">Realitní služby <br/>na míru vašemu životu.</h1>
+                             <p class="text-xl text-white text-weight-400" style="max-width: 600px;">Každý domov má svůj příběh – a ten váš začíná u nás.<br/>
+                                 Provedeme vás celým procesem prodeje či koupě nemovitosti tak, aby byl hladký, bezpečný a příjemný.</p>
+                         </div>
+
+                     </div>
                  </div>
             </div>
         </div>
         <div class="hero-categories">
             <div class="container">
+
                 <div class="hero-categories-list">
-                    <div class="hero-category-item">
+                    <div class="hero-category-item" data-url="{{ path('front_realities_filtered', {
+                        search: null,
+                        mainCategory: 'byty',
+                        subCategory: null,
+                        sortBy: null,
+                        sortDirection: null,
+                        limit: null
+                    }) }}">
                         <i class="icon icon-building"></i>
                         <p class="text-xl">Byty</p>
                     </div>
-                    <div class="hero-category-item">
+                    <div class="hero-category-item" data-url="{{ path('front_realities_filtered', {
+                        search: null,
+                        mainCategory: 'domy',
+                        subCategory: null,
+                        sortBy: null,
+                        sortDirection: null,
+                        limit: null
+                    }) }}">
                         <i class="icon icon-home-03"></i>
                         <p class="text-xl">Domy</p>
                     </div>
-                    <div class="hero-category-item">
-                        <i class="icon icon-home-01"></i>
+                    <div class="hero-category-item" data-url="{{ path('front_realities_filtered', {
+                        search: null,
+                        mainCategory: 'pozemky',
+                        subCategory: null,
+                        sortBy: null,
+                        sortDirection: null,
+                        limit: null
+                    }) }}">
+                        <i class="icon icon-home-01" ></i>
                         <p class="text-xl">Pozemky</p>
                     </div>
-                    <div class="hero-category-item">
+                    <div class="hero-category-item" data-url="{{ path('front_realities_filtered', {
+                        search: null,
+                        mainCategory: 'komercni',
+                        subCategory: null,
+                        sortBy: null,
+                        sortDirection: null,
+                        limit: null
+                    }) }}">
                         <i class="icon icon-building-03"></i>
-                        <p class="text-xl">Kanceláře</p>
+                        <p class="text-xl">Komerční</p>
                     </div>
-                    <div class="hero-category-item">
+                    <div class="hero-category-item" data-url="{{ path('front_realities_filtered', {
+                        search: null,
+                        mainCategory: 'ostatni',
+                        subCategory: null,
+                        sortBy: null,
+                        sortDirection: null,
+                        limit: null
+                    }) }}">
                         <i class="icon icon-home-05"></i>
-                        <p class="text-xl">Novostavby</p>
+                        <p class="text-xl">Ostatní</p>
                     </div>
                 </div>
             </div>
@@ -75,7 +134,7 @@
         <div class="container">
             <div class="metrics-head">
                 <p class="metrics-heading display-md">Naše úspěchy</p>
-                <p class="metrics-supportive text-xl">Lorem ipsum dolor et samet</p>
+{#                <p class="metrics-supportive text-xl">Lorem ipsum dolor et samet</p>#}
             </div>
         </div>
         <div class="container">
@@ -106,12 +165,12 @@
         <div class="container">
             <div class="offers-body">
                 <h2 class="offers-title display-md">Výběr z našich nejnovějších inzerátů</h2>
-                <div class="tabs-wrapper">
-                    <button class="tab-switcher active text-sm btn">Novinky</button>
-                    <button class="tab-switcher text-sm btn">TOP nabídka</button>
-                    <button class="tab-switcher text-sm btn">Slevy</button>
-                    <button class="tab-switcher text-sm btn">Novostavby</button>
-                </div>
+{#                <div class="tabs-wrapper">#}
+{#                    <button class="tab-switcher active text-sm btn">Novinky</button>#}
+{#                    <button class="tab-switcher text-sm btn">TOP nabídka</button>#}
+{#                    <button class="tab-switcher text-sm btn">Slevy</button>#}
+{#                    <button class="tab-switcher text-sm btn">Novostavby</button>#}
+{#                </div>#}
 
                 {{ macros.renderOfferList(properties) }}
 
@@ -126,7 +185,7 @@
             <div class="blog-wrapper">
                 <div class="blog-list-header">
                     <h2 class="blog-header-title display-md">Novinky z realitního trhu</h2>
-                    <p class="blog-header-supportive text-xl">Lorem ipsum dolor et samet</p>
+{#                    <p class="blog-header-supportive text-xl">Lorem ipsum dolor et samet</p>#}
                 </div>
                 {{ macros.renderBlogList() }}
             </div>

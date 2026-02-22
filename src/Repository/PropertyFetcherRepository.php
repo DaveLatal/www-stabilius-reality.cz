@@ -180,6 +180,7 @@ class PropertyFetcherRepository
         ));
 
 
+
         return new CategoryCountingsDTO(
             $allCounts,
             $byty,
@@ -190,4 +191,25 @@ class PropertyFetcherRepository
         );
     }
 
+    public function getActualCountingsForButton(
+        ?string $search = null,
+        ?string $mainCategory = null,
+        ?string $subCategory = null,
+        ?string $sortBy = null,
+        string $sortDirection = 'asc',
+        ?int $limit = null
+    ): int
+    {
+        $properties = $this->fetchProperties();
+        return count($this->filterProperties(
+            $properties,
+            $search,
+            $mainCategory,
+            $subCategory,
+            sortBy: $sortBy,
+            sortDirection: $sortDirection,
+            limit: $limit
+        ));
+
+    }
 }

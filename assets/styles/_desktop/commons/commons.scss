@@ -20,6 +20,9 @@ body{
 
 }
 
+.modal-dialog{
+    --bs-modal-width: fit-content !important;
+}
 
 .container{
     width: 1216px;

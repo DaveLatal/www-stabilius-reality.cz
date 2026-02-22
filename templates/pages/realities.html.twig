@@ -11,11 +11,11 @@
         </div>
     </section>
     <!--class="d-none" -->
-    <section id="real-filter">
+    <section id="real-filter" >
         <div class="container">
             <div class="real-filter-wrapper">
                 <div class="real-filter-categories">
-                    <div class="cat-tab active" data-filter="all">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') is not defined or app.request.query.get('mainCategory') == '' %}active{% endif %}" data-filter="all">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-smile"></i> <span>Vše</span>
@@ -23,15 +23,15 @@
                             <span>{{ catCountings.all }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab" data-filter="byty">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') == 'byty' %}active{% endif %}" data-filter="byty">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
-                                <i class="icon icon-building"></i> <span>Byty</span>
+                                <i class="icon icon-building"></i> <span> Byty</span>
                             </div>
                             <span>{{ catCountings.byty }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab" data-filter="domy">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') == 'domy' %}active{% endif %}" data-filter="domy">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-03"></i> <span>Domy</span>
@@ -39,7 +39,7 @@
                             <span>{{ catCountings.domy }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab" data-filter="pozemky">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') == 'pozemky' %}active{% endif %}" data-filter="pozemky">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-01"></i> <span>Pozemky</span>
@@ -47,7 +47,7 @@
                             <span>{{ catCountings.pozemky }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab" data-filter="komercni">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') == 'komercni' %}active{% endif %}" data-filter="komercni">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-building-02"></i> <span>Komerční</span>
@@ -55,7 +55,7 @@
                             <span>{{ catCountings.komercni }}</span>
                         </div>
                     </div>
-                    <div class="cat-tab" data-filter="ostatni">
+                    <div class="cat-tab {% if app.request.query.get('mainCategory') == 'ostatni' %}active{% endif %}" data-filter="ostatni">
                         <div class="cat-tab-inside">
                             <div class="cat-tab-text-icon">
                                 <i class="icon icon-home-04"></i> <span>Ostatní</span>
@@ -64,35 +64,100 @@
                         </div>
                     </div>
                 </div>
-                <div class="tabs-wrapper">
-                    <button class="tab-switcher active text-sm btn" data-filter="vse">Vše</button>
-                    <button class="tab-switcher text-sm btn" data-filter="rodinny_dum">Rodinný dům</button>
-                    <button class="tab-switcher text-sm btn" data-filter="chata">Chata</button>
-                    <button class="tab-switcher text-sm btn" data-filter="chalupa">Chalupa</button>
+                <div id="dum_subfilter" class="tabs-wrapper tab-subfilter">
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') is not defined or app.request.query.get('subCategory') == '' %}active{% endif %} text-sm btn" data-filter="vse">Vše</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Vícegenerační dům' %}active{% endif %} text-sm btn" data-filter="Vícegenerační dům">Vícegenerační dům</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Rodinný dům' %}active{% endif %} text-sm btn" data-filter="Rodinný dům">Rodinný dům</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Vila' %}active{% endif %} text-sm btn" data-filter="Vila">Vila</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Činžovní dům' %}active{% endif %} text-sm btn" data-filter="Činžovní dům">Činžovní dům</button>
                 </div>
+                <div id="byt_subfilter" class="tabs-wrapper tab-subfilter d-none">
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') is not defined or app.request.query.get('subCategory') == '' %}active{% endif %} text-sm btn" data-filter="vse">Vše</button>
+
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Apartmán' %}active{% endif %} text-sm btn" data-filter="Apartmán">Apartmán</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Garsoneira' %}active{% endif %} text-sm btn" data-filter="Garsoneira">Garsoneira</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Pokoj' %}active{% endif %} text-sm btn" data-filter="Pokoj">Pokoj</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '1+kk' %}active{% endif %} text-sm btn" data-filter="1+kk">1+kk</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '1+1' %}active{% endif %} text-sm btn" data-filter="1+1">1+1</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '2+kk' %}active{% endif %} text-sm btn" data-filter="2+kk">2+kk</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '2+1' %}active{% endif %} text-sm btn" data-filter="2+1">2+1</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '3+kk' %}active{% endif %} text-sm btn" data-filter="3+kk">3+kk</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '3+1' %}active{% endif %} text-sm btn" data-filter="3+1">3+1</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '4+kk' %}active{% endif %} text-sm btn" data-filter="4+kk">4+kk</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '4+1' %}active{% endif %} text-sm btn" data-filter="4+1">4+1</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '5+kk' %}active{% endif %} text-sm btn" data-filter="5+kk">5+kk</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == '5+1' %}active{% endif %} text-sm btn" data-filter="5+1">5+1</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'atypický/jiný' %}active{% endif %} text-sm btn" data-filter="atypický/jiný">atypický/jiný</button>
+                </div>
+
+                <div id="pozemky_subfilter" class="tabs-wrapper tab-subfilter d-none">
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') is not defined or app.request.query.get('subCategory') == '' %}active{% endif %} text-sm btn" data-filter="vse">Vše</button>
+
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Pozemek, bydlení' %}active{% endif %} text-sm btn" data-filter="Pozemek, bydlení">Pozemek, bydlení</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Pozemek, komerční' %}active{% endif %} text-sm btn" data-filter="Pozemek, komerční">Pozemek, komerční</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Zahrada' %}active{% endif %} text-sm btn" data-filter="Zahrada">Zahrada</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Zemědělská půda' %}active{% endif %} text-sm btn" data-filter="Zemědělská půda">Zemědělská půda</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Les' %}active{% endif %} text-sm btn" data-filter="Les">Les</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Louka' %}active{% endif %} text-sm btn" data-filter="Louka">Louka</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Vodní plocha' %}active{% endif %} text-sm btn" data-filter="Vodní plocha">Vodní plocha</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Sady, vinice' %}active{% endif %} text-sm btn" data-filter="Sady, vinice">Sady, vinice</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Ostatní plocha' %}active{% endif %} text-sm btn" data-filter="Ostatní plocha">Ostatní plocha</button>
+                </div>
+
+                <div id="komercni_subfilter" class="tabs-wrapper tab-subfilter d-none">
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') is not defined or app.request.query.get('subCategory') == '' %}active{% endif %} text-sm btn" data-filter="vse">Vše</button>
+
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Ordinace' %}active{% endif %} text-sm btn" data-filter="Ordinace">Ordinace</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Kancelář' %}active{% endif %} text-sm btn" data-filter="Kancelář">Kancelář</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Skladovací prostory' %}active{% endif %} text-sm btn" data-filter="Skladovací prostory">Skladovací prostory</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Výrobní prostory' %}active{% endif %} text-sm btn" data-filter="Výrobní prostory">Výrobní prostory</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Hotel' %}active{% endif %} text-sm btn" data-filter="Hotel">Hotel</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Penzion' %}active{% endif %} text-sm btn" data-filter="Penzion">Penzion</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Restaurace, bar' %}active{% endif %} text-sm btn" data-filter="Restaurace, bar">Restaurace, bar</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Obchodní prostor' %}active{% endif %} text-sm btn" data-filter="Obchodní prostor">Obchodní prostor</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Provozní areál' %}active{% endif %} text-sm btn" data-filter="Provozní areál">Provozní areál</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Zemědělský objekt' %}active{% endif %} text-sm btn" data-filter="Zemědělský objekt">Zemědělský objekt</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Administrativní budova' %}active{% endif %} text-sm btn" data-filter="Administrativní budova">Administrativní budova</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Ostatní komerční objekt' %}active{% endif %} text-sm btn" data-filter="Ostatní komerční objekt">Ostatní komerční objekt</button>
+                </div>
+
+                <div id="ostatni_subfilter" class="tabs-wrapper tab-subfilter d-none">
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') is not defined or app.request.query.get('subCategory') == '' %}active{% endif %} text-sm btn" data-filter="vse">Vše</button>
+
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Půdní prostor' %}active{% endif %} text-sm btn" data-filter="Půdní prostor">Půdní prostor</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Garáž' %}active{% endif %} text-sm btn" data-filter="Garáž">Garáž</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Garážové stání' %}active{% endif %} text-sm btn" data-filter="Garážové stání">Garážové stání</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Parkovací stání' %}active{% endif %} text-sm btn" data-filter="Parkovací stání">Parkovací stání</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Zámek, hrad, památka' %}active{% endif %} text-sm btn" data-filter="Zámek, hrad, památka">Zámek, hrad, památka</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Mobilheimy' %}active{% endif %} text-sm btn" data-filter="Mobilheimy">Mobilheimy</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Vinný sklep' %}active{% endif %} text-sm btn" data-filter="Vinný sklep">Vinný sklep</button>
+                    <button class="tab-switcher {% if app.request.query.get('subCategory') == 'Nezařazené' %}active{% endif %} text-sm btn" data-filter="Nezařazené">Nezařazené</button>
+                </div>
+
                 <div class="real-filter-subfilter">
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
                             <label>Typ nabídky</label>
-                            <select aria-label="">
-                                <option>Vše</option>
-                                <option>Prodej</option>
-                                <option>Pronájem</option>
+                            <select aria-label="" class="subfilter-item-select" id="offer_type_select">
+                                <option value="vse">Vše</option>
+                                <option value="prodej">Prodej</option>
+                                <option value="pronajem">Pronájem</option>
+                                <option value="drazba">Dražba</option>
                             </select>
                         </div>
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
                             <label>Výběr kraje</label>
-                            <select aria-label="">
-                                <option>Vše</option>
+                            <select aria-label="" id="kraj_select" class="subfilter-item-select">
+                                <option value="vse">Vše</option>
                             </select>
                         </div>
                     </div>
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
                             <label>Okres</label>
-                            <select aria-label="">
+                            <select aria-label="" id="okres_select" class="subfilter-item-select">
                                 <option>Vše</option>
                             </select>
                         </div>
@@ -100,7 +165,7 @@
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
                             <label>Lokalita</label>
-                            <select aria-label="">
+                            <select aria-label="" id="lokalita_select" class="subfilter-item-select">
                                 <option>Vše</option>
                             </select>
                         </div>
@@ -108,8 +173,12 @@
                     <div class="subfilter-item-wrapper">
                         <div class="subfilter-item">
                             <label>Cena</label>
-                            <select aria-label="">
-                                <option>Vše</option>
+                            <select aria-label="" id="price_select" class="subfilter-item-select">
+                                <option value="0">Vše</option>
+                                <option value="500000">Do 500 000,-</option>
+                                <option value="500000-1000000">500 000 - 1 000 000,-</option>
+                                <option value="1000000-5000000">1 000 000 - 5 000 000,-</option>
+                                <option value="5000000">nad 5 000 000,-</option>
                             </select>
                         </div>
                     </div>
@@ -125,10 +194,10 @@
         <div class="container">
             <div class="real-results-wrapper">
                 <div class="real-results-upper-controls">
-                    <span class="text-md">Nalezeno: <br class="show-mobile"> {{ catCountings.all }} nemovitostí</span>
+                    <span class="text-md">Nalezeno: <br class="show-mobile"> {{ properties|length }} nemovitostí</span>
                     <div class="results-upper-controls-wrapper">
                         <label id="real-sorting" class="text-md">Řadit podle:</label>
-                        <select aria-label="real-sorting">
+                        <select aria-label="real-sorting" id="sorting_select" class="subfilter-item-select">
                             <option data-sort-by="" data-sort-direction="">Neřadit</option>
                             <option data-sort-by="price" data-sort-direction="asc">Cena vzestupně</option>
                             <option data-sort-by="price" data-sort-direction="desc">Cena sestupně</option>
@@ -155,7 +224,7 @@
 {#                        <a class="btn"><div class="pagination-content">9</div></a>#}
 {#                    </div>#}
                     <div class="pagination-mobile-numbers-wrap">
-                        <span class="text-sm">Strana <b>1</b> z <b>10</b> </span>
+                        <span class="text-sm">Strana <b>1</b> z <b>1</b> </span>
                     </div>
                     <div class="pagination-button-wrap right">
                         <button class="btn" disabled><span class="show-desktop">Následující</span> <i class="icon icon-arrow-r"></i></button>
