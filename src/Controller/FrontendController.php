@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Breadcrumb\BreadcrumbsFactory;
 use App\DTO\PropertyDetailDTO;
 use App\DTO\PropertyListItemDTO;
+use App\Repository\NewsFetcherRepository;
 use App\Repository\PropertyFetcherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
@@ -23,15 +24,18 @@ class FrontendController extends AbstractController
 
     private RealityRepository $realityRepository;
     private PropertyFetcherRepository $propertyFetcherRepository;
+    private NewsFetcherRepository $newsFetcherRepository;
 
 
     public function __construct(
         RealityRepository $realityRepository,
-        PropertyFetcherRepository $propertyFetcherRepository
+        PropertyFetcherRepository $propertyFetcherRepository,
+        NewsFetcherRepository $newsFetcherRepository
     )
     {
         $this->realityRepository = $realityRepository;
         $this->propertyFetcherRepository = $propertyFetcherRepository;
+        $this->newsFetcherRepository = $newsFetcherRepository;
 
     }
 
@@ -40,6 +44,7 @@ class FrontendController extends AbstractController
     {
 
         $properties = $this->propertyFetcherRepository->fetchProperties();
+//        $news = $this->newsFetcherRepository->fetchNews();
 
         $resultsHp = $this->propertyFetcherRepository->filterProperties(
             $properties,
@@ -50,9 +55,10 @@ class FrontendController extends AbstractController
             sortDirection: 'asc',
             limit: 6
         );
-
+//        dump($news);
         return $this->render('pages/homepage.html.twig',[
-            "properties"=>$resultsHp
+            "properties"=>$resultsHp,
+//            "news"=>$news
         ]);
     }
 
@@ -61,6 +67,8 @@ class FrontendController extends AbstractController
     {
         $breadcrumbs = $breadcrumbsFactory->create();
         $properties = $this->propertyFetcherRepository->fetchProperties();
+//        $news = $this->newsFetcherRepository->fetchNews();
+
         $allCountings = $this->propertyFetcherRepository->getCountingsForCategories();
         $results = $this->propertyFetcherRepository->filterProperties(
             $properties,
@@ -75,7 +83,8 @@ class FrontendController extends AbstractController
         return $this->render('pages/realities.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
             "catCountings"=>$allCountings,
-            "properties"=>$results
+            "properties"=>$results,
+//            "news"=>$news
         ]);
     }
 
@@ -98,6 +107,7 @@ class FrontendController extends AbstractController
 
         // Fetch properties ONCE
         $properties = $this->propertyFetcherRepository->fetchProperties();
+//        $news = $this->newsFetcherRepository->fetchNews();
 
         // Category counters
         $allCountings = $this->propertyFetcherRepository->getCountingsForCategories(
@@ -124,6 +134,7 @@ class FrontendController extends AbstractController
             'breadcrumbs'  => $breadcrumbs,
             'catCountings' => $allCountings,
             'properties'   => $results,
+//            "news"=>$news
         ]);
     }
 
@@ -184,10 +195,12 @@ class FrontendController extends AbstractController
     #[Route('/o-nas', name: 'front_about_us')]
     public function about_us(BreadcrumbsFactory $breadcrumbsFactory): Response
     {
+//        $news = $this->newsFetcherRepository->fetchNews();
 
         $breadcrumbs = $breadcrumbsFactory->create();
         return $this->render('pages/onas.html.twig',[
-            "breadcrumbs"=>$breadcrumbs
+            "breadcrumbs"=>$breadcrumbs,
+//            "news"=>$news
         ]);
     }
 
@@ -205,11 +218,13 @@ class FrontendController extends AbstractController
     public function contacts(BreadcrumbsFactory $breadcrumbsFactory): Response
     {
         $googleMapsApiKey = $_ENV['GOOGLE_MAPS_API_KEY'];
+//        $news = $this->newsFetcherRepository->fetchNews();
 
         $breadcrumbs = $breadcrumbsFactory->create();
         return $this->render('pages/kontakty.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
             "google_maps_api_key"=>$googleMapsApiKey,
+//            "news"=>$news
         ]);
     }
 

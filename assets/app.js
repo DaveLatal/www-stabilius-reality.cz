@@ -261,16 +261,15 @@ $(document).ready(function() {
 
     });
 
-    $('#send-mail').click(function (){
-        let firstname = $("#mail_form_firstname").val();
-        let lastname = $("#mail_form_lastname").val();
-        let email = $("#mail_form_email").val();
-        let phone = $("#mail_form_phone").val();
-        let message = $("#mail_form_message-text").val();
-        let agreed = $("#agree-send-mail").is(":checked");
-        let spinner = $("#mail-spinner");
+    $('.send-mail').click(function (){
+        let firstname = $(".mail_form_firstname").val();
+        let lastname = $(".mail_form_lastname").val();
+        let email = $(".mail_form_email").val();
+        let phone = $(".mail_form_phone").val();
+        let message = $(".mail_form_message-text").val();
+        let agreed = $(".agree-send-mail").is(":checked");
+        let spinner = $(".mail-spinner");
         let info = $(".form-send-result");
-
         if(agreed){
             spinner.addClass("active");
             $.ajax({
@@ -286,9 +285,9 @@ $(document).ready(function() {
                 success: function (response) {
                     //service.php response
                     if(response.success===true){
-                        console.log("jedem bomby");
+
                         info.addClass("active");
-                        $("#mail-form").trigger('reset');
+                        $(".seller-contact-form").trigger('reset');
                         spinner.removeClass("active");
                     }
                 }

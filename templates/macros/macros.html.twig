@@ -134,13 +134,13 @@
                 <div class="label-wrapper">
                     <label class="text-sm" id="name">Jméno</label>
                 </div>
-                <input type="text" id="mail_form_firstname" name="mail_form_firstname" aria-label="name" placeholder="Petr"/>
+                <input type="text" id="mail_form_firstname" name="mail_form_firstname" class="mail_form_firstname" aria-label="name" placeholder="Petr"/>
             </div>
             <div class="input-area">
                 <div class="label-wrapper">
                     <label class="text-sm" id="surname">Příjmení</label>
                 </div>
-                <input type="text" id="mail_form_lastname" name="mail_form_lastname" aria-label="surname" placeholder="Novák"/>
+                <input type="text" id="mail_form_lastname" name="mail_form_lastname" class="mail_form_lastname" aria-label="surname" placeholder="Novák"/>
             </div>
         </div>
         <div class="seller-contact-form-row">
@@ -148,30 +148,30 @@
                 <div class="label-wrapper">
                     <label class="text-sm" id="email">Email</label>
                 </div>
-                <input type="text" id="mail_form_email" name="mail_form_email" aria-label="email" placeholder="novak@email.cz"/>
+                <input type="text" id="mail_form_email" name="mail_form_email" class="mail_form_email"  aria-label="email" placeholder="novak@email.cz"/>
             </div>
             <div class="input-area">
                 <div class="label-wrapper">
                     <label class="text-sm" id="phone">Telefon</label>
                 </div>
-                <input type="text" id="mail_form_phone" name="mail_form_phone" aria-label="phone" placeholder="+420 777 123 456"/>
+                <input type="tel" id="mail_form_phone" name="mail_form_phone" class="mail_form_phone" aria-label="phone" placeholder="+420 777 123 456"/>
             </div>
         </div>
         <div class="input-textarea">
             <div class="label-wrapper">
                 <label class="text-sm" id="message-text-label">Zpráva</label>
             </div>
-            <textarea name="mail_form_message-text" id="mail_form_message-text"  placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
+            <textarea name="mail_form_message-text" id="mail_form_message-text" class="mail_form_message-text"  placeholder="Napište zprávu" aria-label="message-text-label"></textarea>
         </div>
         <div class="form-send-result">
             <i class="icon icon-mail"></i><span id="form-send-result-msg" class="text-md">Zpráva odeslána!</span>
         </div>
         <div class="contact-seller-buttons-wrapper">
             <div class="checkbox-wrapper">
-                <input name="agree-send-mail" id="agree-send-mail" type="checkbox" aria-label="agreed-lalbel"/>
+                <input name="agree-send-mail" id="agree-send-mail" type="checkbox" aria-label="agreed-lalbel" class="agree-send-mail"/>
                 <label id="agreed-lalbel" class="text-sm">Potvrzuji, že jsem se seznámil/a se zásadami o ochraně osobních údajů</label>
             </div>
-            <button id="send-mail" type="button" class="btn btn-custom-dark">
+            <button id="send-mail" type="button" class="btn btn-custom-dark send-mail">
                 <div id="mail-spinner" class="spinner-border" role="status">
                 </div>
                 Odeslat zprávu</button>
@@ -185,6 +185,36 @@
     <div class="blog-items-list-wrapper">
         <div class="blog-items-list">
             {% if blogs==null %}
+                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3015-jak-se-dedi-v-sesivane-rodine">
+                    <img src="https://www.realitycechy.cz/_data/1772134610.jpg" alt="1772134610"/>
+                    <div class="blog-item-description">
+                        <div class="blog-item-heading">
+                            <p class="blog-item-heading-subhead text-sm">26. 2. 2026</p>
+                            <div class="blog-item-heading-texts">
+                                <div class="blog-item-heading-texts-title-wrapper">
+                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Jak se dědí v sešívané rodině'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <p class="blog-item-heading-texts-description">{{ 'Dědické řízení je jednoduché, pokud zůstavitel zanechal závěť, sepsal dědickou smlouvu či daroval svůj majetek za života. Jednoduché to je také, pokud jde o první manželství, majetek je ve společném jmění manželů a manželé mají společné děti. Ovšem rozvodem končí skoro 40 % manželství a často lidé vstupují do dalších vztahů. Takže na konci života často platí to staré známé „moje děti, tvoje děti, naše děti“. Jak budou společně dědit třeba rodinný dům?'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3014-proc-byste-si-nemovitost-nemeli-prodavat-sami">
+                    <img src="https://www.realitycechy.cz/_data/1772028936.jpg" alt="1772028936"/>
+                    <div class="blog-item-description">
+                        <div class="blog-item-heading">
+                            <p class="blog-item-heading-subhead text-sm">25. 2. 2026</p>
+                            <div class="blog-item-heading-texts">
+                                <div class="blog-item-heading-texts-title-wrapper">
+                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Proč byste si nemovitost neměli prodávat sami?'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <p class="blog-item-heading-texts-description">{{ 'Prodat nemovitost se může na první pohled zdát jako jednoduchý proces. Stačí pořídit několik fotografií, vystavit inzerát a čekat na zájemce. Realita je ale často jiná. Prodej bytu, domu nebo třeba pozemku je komplexní proces, který vyžaduje celou řadu odborných znalostí a zkušeností. Právě tam se ukazuje hodnota zkušeného realitního makléře.'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3013-neplatici-na-odchodu-novy-rozkaz-k-vyklizeni-zrychli-cestu-pronajimatele-k-bytu">
                     <img src="https://www.realitycechy.cz/_data/1771580823.jpg" alt="1771580823"/>
                     <div class="blog-item-description">
@@ -200,36 +230,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3012-zajem-o-hypoteky-neklesa-ani-na-zacatku-roku">
-                    <img src="https://www.realitycechy.cz/_data/1771401993_th.jpg" alt="1771401993_th"/>
-                    <div class="blog-item-description">
-                        <div class="blog-item-heading">
-                            <p class="blog-item-heading-subhead text-sm">18. 2. 2026</p>
-                            <div class="blog-item-heading-texts">
-                                <div class="blog-item-heading-texts-title-wrapper">
-                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Zájem o hypotéky neklesá ani na začátku roku'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
-                                    <i class="icon icon-arrow"></i>
-                                </div>
-                                <p class="blog-item-heading-texts-description">{{ 'Po rekordním roce 2021 šlo o druhý nejvyšší objem nově poskytnutých hypoték v historii. Pokud započítáme i refinancované hypotéky, dosáhl loňský objem dokonce 406 miliard korun. Počet nově…'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-item" data-url="https://www.realitycechy.cz/clanky/realitni-zpravodaj/3011-platby-za-zmenu-druhu-pozemku-se-zrejme-behem-letosniho-roku-zvysi-o-dalsi-poplatek">
-                    <img src="https://www.realitycechy.cz/_data/1771266986_th.jpg" alt="1771266986_th"/>
-                    <div class="blog-item-description">
-                        <div class="blog-item-heading">
-                            <p class="blog-item-heading-subhead text-sm">16. 2. 2026</p>
-                            <div class="blog-item-heading-texts">
-                                <div class="blog-item-heading-texts-title-wrapper">
-                                    <p class="blog-item-heading-texts-title display-xs">{{ 'Platby za změnu druhu pozemku se zřejmě během letošního roku zvýší o další poplatek'|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
-                                    <i class="icon icon-arrow"></i>
-                                </div>
-                                <p class="blog-item-heading-texts-description">{{ 'Územní plán je „svatým grálem“ obce. A podle něj stoupá nebo klesá hodnota jednotlivých pozemků. Ty mohou být situované v zastavěném území obce, v zastavitelném území obce nebo v nezastavitelném…'|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
 
             {% else %}
                 {% for blog in blogs %}
