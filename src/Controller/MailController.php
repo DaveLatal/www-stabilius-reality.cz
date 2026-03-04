@@ -19,7 +19,7 @@ class MailController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/send-contact-form-mail', name: 'send_contact_from_mail')]
-    public function sendQuestion(MailerInterface $mailer, Request $request, Seller $seller=null): JsonResponse
+    public function sendQuestion(MailerInterface $mailer, Request $request, string $seller=null): JsonResponse
     {
 
 
@@ -27,21 +27,27 @@ class MailController extends AbstractController
         if($seller==null){
             $mailTo = "info@stabilius-real.cz";
         }else{
-            $mailTo = $seller->getEmailContact();
+            $mailTo = $seller;
         }
+        dump($request->request->all());
 
         $data = $request->request->all();
 
-        $message = new MailMessageDTO($data["firstname"],$data["lastname"],$data["email"],$data["phone"],$data["message"]);
-
+        $message = new MailMessageDTO($data["mail_form_firstname"],$data["mail_form_lastname"],$data["mail_form_email"],$data["mail_form_phone"],$data["mail_form_message-text"]);
+//        if($data["email"]!=""){$replyTo=$data["email"];}else{$replyTo="unknown@stabilius-real.cz";}
         $email = (new TemplatedEmail())
-            ->from(new Address('noreply@stabilius-real.cz', 'Kontaktní formulář'))
-            ->to(new Address($mailTo))
-            ->subject($data["firstname"]. " ".$data["lastname"].' vám zasílá dotaz z webu')
+            ->from(new Address('info@stabilius-real.cz', 'Kontaktní formulář'))
+//            ->to('info@stabilius-real.cz')
+            ->to('davelatal@gmail.com')
+            ->subject('Contact form')
             ->htmlTemplate('email/contact_form.html.twig')
-            ->context([
-                'message' => $message,
-            ]);;
+            ->context(['message' => $message]);
+
+        $emailAddress = $data['email'] ?? null;
+
+        if (filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+            $email->replyTo(new Address($emailAddress));
+        }
 
         $mailer->send($email);
 

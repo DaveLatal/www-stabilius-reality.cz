@@ -270,24 +270,32 @@ $(document).ready(function() {
         let agreed = $(".agree-send-mail").is(":checked");
         let spinner = $(".mail-spinner");
         let info = $(".form-send-result");
+        let form = $(".seller-contact-form");
+        let seller = form.attr("data-broker");
         if(agreed){
             spinner.addClass("active");
+
             $.ajax({
                 type: "POST",
                 url: "/send-contact-form-mail",
-                data: {
-                    firstname: firstname,
-                    lastname: lastname,
-                    email: email,
-                    phone: phone,
-                    message: message,
-                },
+                data: form.serialize(),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //     {
+                //     firstname: firstname,
+                //     lastname: lastname,
+                //     email: email,
+                //     phone: phone,
+                //     message: message,
+                // }
+
+
+
                 success: function (response) {
                     //service.php response
                     if(response.success===true){
 
                         info.addClass("active");
-                        $(".seller-contact-form").trigger('reset');
+                        form.trigger('reset');
                         spinner.removeClass("active");
                     }
                 }
