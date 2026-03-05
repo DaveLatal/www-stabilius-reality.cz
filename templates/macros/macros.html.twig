@@ -133,6 +133,7 @@
                     <label class="text-sm" id="name">Jméno</label>
                 </div>
                 <input type="text" id="mail_form_firstname" name="mail_form_firstname" class="mail_form_firstname" aria-label="name" placeholder="Petr"/>
+                <input type="hidden" id="mail_form_seller" name="mail_form_seller" class="mail_form_seller" value="{% if broker is defined %}{{ broker }}{% endif %}" />
             </div>
             <div class="input-area">
                 <div class="label-wrapper">
