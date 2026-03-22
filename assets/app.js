@@ -274,21 +274,11 @@ $(document).ready(function() {
         let seller = form.attr("data-broker");
         if(agreed){
             spinner.addClass("active");
-
             $.ajax({
                 type: "POST",
                 url: "/send-contact-form-mail",
                 data: form.serialize(),
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                //     {
-                //     firstname: firstname,
-                //     lastname: lastname,
-                //     email: email,
-                //     phone: phone,
-                //     message: message,
-                // }
-
-
 
                 success: function (response) {
                     //service.php response

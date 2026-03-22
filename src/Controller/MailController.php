@@ -22,9 +22,6 @@ class MailController extends AbstractController
     public function sendQuestion(MailerInterface $mailer, Request $request): JsonResponse
     {
 
-
-        dump($request->request->all());
-
         $data = $request->request->all();
 
         $message = new MailMessageDTO($data["mail_form_firstname"],$data["mail_form_lastname"],$data["mail_form_email"],$data["mail_form_phone"],$data["mail_form_message-text"]);
@@ -35,7 +32,7 @@ class MailController extends AbstractController
             $mailTo = $data["mail_form_seller"];
         }
         $email = (new TemplatedEmail())
-            ->from(new Address('noreply@stabilius-real.cz', 'Kontaktní formulář'))
+            ->from(new Address('info@stabilius-real.cz', 'Kontaktní formulář'))
             ->to($mailTo)
             ->subject('Contact form')
             ->htmlTemplate('email/contact_form.html.twig')
