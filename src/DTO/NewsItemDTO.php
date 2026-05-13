@@ -7,9 +7,10 @@ final readonly class NewsItemDTO
     public function __construct(
         public string $title,
         public ?string $link,
+        public ?string $image,
         public ?string $description,
         public ?\DateTimeImmutable $pubDate,
-        public array $categories = []
+
     ) {}
 
     public static function listFromRss(string $xmlString): array
@@ -28,17 +29,12 @@ final readonly class NewsItemDTO
                 }
             }
 
-            $categories = [];
-            foreach ($item->category as $cat) {
-                $categories[] = trim((string) $cat);
-            }
-
             $list[] = new self(
                 title: trim((string) $item->title),
                 link: isset($item->link) ? trim((string) $item->link) : null,
+                image: isset($item->enclosure) ? trim((string) $item->enclosure["url"]) : null,
                 description: isset($item->description) ? trim((string) $item->description) : null,
-                pubDate: $pubDate,
-                categories: $categories
+                pubDate: $pubDate
             );
         }
 

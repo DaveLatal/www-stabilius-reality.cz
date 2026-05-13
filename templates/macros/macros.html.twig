@@ -57,14 +57,18 @@
 
 {% macro renderOfferItem(offer=null) %}
     {% if offer is not null %}
-        <div class="offer-tab {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato"%}sold{% endif %}" data-slug="{{ offer.id }}">
-            {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato"%}
+        <div class="offer-tab {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato" or offer.columns['cena_poznamka'] == "prodáno" or offer.columns['cena_poznamka'] == "pronajato" or offer.columns['cena_poznamka'] == "prodano" or offer.columns['cena_poznamka'] == "Prodano"%}sold{% endif %}" data-slug="{{ offer.id }}">
+            {% if offer.columns['cena_poznamka'] == "Prodáno" or offer.columns['cena_poznamka'] == "Pronajato" or offer.columns['cena_poznamka'] == "prodáno" or offer.columns['cena_poznamka'] == "pronajato" or offer.columns['cena_poznamka'] == "prodano" or offer.columns['cena_poznamka'] == "Prodano"%}
                 <div class="sold"></div>
             {% endif %}
             <div class="offer-tab-image">
                 <img src="{% if offer.columns['photo'] is defined %}{{ offer.columns['photo'] }}{% elseif reality.images[0] is defined %}{{ offer.images[0] }}{% endif %}" alt="" />
                 {% if offer.columns['cena_poznamka'] == "Prodáno" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "Prodano" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "prodáno" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "prodano" %}<div class="tag sold text-sm">Prodáno</div>{% endif %}
                 {% if offer.columns['cena_poznamka'] == "Pronajato" %}<div class="tag sold text-sm">Pronajato</div>{% endif %}
+                {% if offer.columns['cena_poznamka'] == "pronajato" %}<div class="tag sold text-sm">Pronajato</div>{% endif %}
             </div>
             <div class="offer-tab-content">
                 <div class="offer-tab-text">
@@ -234,17 +238,17 @@
 
             {% else %}
                 {% for blog in blogs %}
-                    <div class="blog-item">
+                    <div class="blog-item" data-url="{{ blog.link }}">
                         <img src="{{ blog.image }}" alt="Blog image 03"/>
                         <div class="blog-item-description">
                             <div class="blog-item-heading">
-                                <p class="blog-item-heading-subhead text-sm">{{ blog.publishedAt }}</p>
+                                <p class="blog-item-heading-subhead text-sm">{{ blog.pubDate|date("d. m. Y") }}</p>
                                 <div class="blog-item-heading-texts">
                                     <div class="blog-item-heading-texts-title-wrapper">
                                         <p class="blog-item-heading-texts-title display-xs">{{ blog.title|u.truncate(25, '...', true)|trim('.') ~ '...' }}</p>
                                         <i class="icon icon-arrow"></i>
                                     </div>
-                                    <p class="blog-item-heading-texts-description">{{ blog.subtitle|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
+                                    <p class="blog-item-heading-texts-description">{{ blog.description|u.truncate(100, '...', true)|trim('.') ~ '...' }}</p>
                                 </div>
                             </div>
                         </div>

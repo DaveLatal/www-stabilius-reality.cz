@@ -44,7 +44,8 @@ class FrontendController extends AbstractController
     {
 
         $properties = $this->propertyFetcherRepository->fetchProperties();
-//        $news = $this->newsFetcherRepository->fetchNews();
+        $news = $this->newsFetcherRepository->fetchNews();
+        $newsLimited = $this->newsFetcherRepository->limitNews($news,3);
 
         $resultsHp = $this->propertyFetcherRepository->filterProperties(
             $properties,
@@ -58,7 +59,7 @@ class FrontendController extends AbstractController
 //        dump($news);
         return $this->render('pages/homepage.html.twig',[
             "properties"=>$resultsHp,
-//            "news"=>$news
+            "news"=>$newsLimited
         ]);
     }
 
@@ -195,12 +196,13 @@ class FrontendController extends AbstractController
     #[Route('/o-nas', name: 'front_about_us')]
     public function about_us(BreadcrumbsFactory $breadcrumbsFactory): Response
     {
-//        $news = $this->newsFetcherRepository->fetchNews();
+        $news = $this->newsFetcherRepository->fetchNews();
+        $newsLimited = $this->newsFetcherRepository->limitNews($news,3);
 
         $breadcrumbs = $breadcrumbsFactory->create();
         return $this->render('pages/onas.html.twig',[
             "breadcrumbs"=>$breadcrumbs,
-//            "news"=>$news
+            "news"=>$newsLimited
         ]);
     }
 
